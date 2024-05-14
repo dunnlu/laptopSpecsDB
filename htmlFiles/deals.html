@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>Deals</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newDeals() { showform('insert'); }
+    function updateDeals(pid) { showform('update'); }
+    function deleteDeals(pid) { showform ('delete'); }
+    function browseDeals() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseDeals()">
+<h1>Deals</h1>
+[ <a href="http://classwork.engr.oregonstate.edu:56294/wishlists">Wishlists</a> | <a href="http://classwork.engr.oregonstate.edu:56294/laptops">Laptops</a> | <a href="http://classwork.engr.oregonstate.edu:56294/deals">Deals</a> ]
+<p>View existing deals, or modify an existing one.</p>
+<div id="browse">
+<p>
+  <a href="#" onClick="newDeals()">New Wishlist</a>
+</p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>deal ID</th>
+    <th>laptop</th>
+    <th>store</th>
+    <th>start</th>
+    <th>end</th>
+    <th>stock</th>
+    <th>price</th>
+    <th>url</th>
+    <th>edit</th>
+    <th>delete</th>
+  </tr>
+  <tr>
+    <td align="center" >1</td>     <!-- dealID -->
+    <td>Zbook</td>               <!-- laptopID -->
+    <td>HP</td>                  <!-- storeID -->
+    <td>2024-04-30</td>          <!-- startTime -->
+    <td></td>                    <!-- endTime -->
+    <td>high</td>                <!-- stock -->
+    <td>$2,759.00</td>           <!-- price -->
+    <td><a href="https://www.hp.com/us-en/shop/mdp/hp-zbook-power-15-mobile-workstation" target="_blank">link</a></td>
+    <td><a href="#" onClick="updateDeals('this.dealsID')">Edit</a></td>
+    <td><a href="#" onclick="deleteDeals('this.dealsID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="center" >2</td>   <!-- dealID -->
+    <td>Thin GF63</td>           <!-- laptopID -->
+    <td>QVC</td>                 <!-- storeID -->
+    <td>2024-04-30</td>          <!-- startTime -->
+    <td></td>                    <!-- endTime -->
+    <td>low</td>                 <!-- stock -->
+    <td>$1,299.00</td>           <!-- price -->
+    <td><a href="https://www.qvc.com/msi-thin-gf63-156-144hz-gaming-laptop-i7-rtx40-60-16gb-512gb.product.E318491.html" target="_blank">link</a></td>
+    <td><a href="#" onClick="updateDeals('this.dealsID')">Edit</a></td>
+    <td><a href="#" onclick="deleteDeals('this.dealsID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="center" >3</td>   <!-- dealID -->
+    <td>Omen</td>                <!-- laptopID -->
+    <td>QVC</td>                 <!-- storeID -->
+    <td>2024-04-30</td>          <!-- startTime -->
+    <td></td>                    <!-- endTime -->
+    <td>low</td>                 <!-- stock -->
+    <td>$1,999.98</td>           <!-- price -->
+    <td><a href="https://www.omen.com/us/en/laptops/2019-omen-15/specifications.html" target="_blank">link</a></td>
+    <td><a href="#" onClick="updateDeals('this.dealsID')">Edit</a></td>
+    <td><a href="#" onclick="deleteDeals('this.dealsID')">Delete</a></td>
+  </tr>
+</table>
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addDeals">
+        <legend><strong>Add Deal</strong></legend>
+          <fieldset class="fields">
+            <label> laptop </label> <input type="text" name="laptopID">
+            <label> store </label> <input type="text" name="laptopID">
+            <label> start </label> <input type="text" name="storeID">
+            <label> end </label> <input type="text" name="gpu">
+            <label> stock </label> <input type="text" name="ram">
+            <label> price </label> <input type="text" name="internalStorage">
+            <label> url </label> <input type="text" name="url">
+      </fieldset>
+          <input class="btn" type="submit" id="addDeals" value="add">
+          <input class="btn" type="button" value="cancel" onClick="browseDeals()">
+	</form>
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateDeals">
+        <legend><strong>Update Deal</strong></legend>
+        <fieldset class="fields">
+          <label> laptop </label> <input type="text" name="laptopID">
+          <label> store </label> <input type="text" name="laptopID">
+          <label> start </label> <input type="text" name="storeID">
+          <label> end </label> <input type="text" name="gpu">
+          <label> stock </label> <input type="text" name="ram">
+          <label> price </label> <input type="text" name="price">
+          <label> url </label> <input type="text" name="url">
+    </fieldset>
+        <input class="btn" type="submit" id="addDeals" value="add">
+        <input class="btn" type="button" value="cancel" onClick="browseDeals()">
+	</form>
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteDeals">
+      <legend><strong>Delete Deal</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="DealsID" id="deleteDealsID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Deal</strong> $1,299.00 Thin GF63 from QVC </label> 
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteDeals" value="Delete Deals">
+          <input class="btn" type="button" value="cancel" onClick="browseDeals()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>

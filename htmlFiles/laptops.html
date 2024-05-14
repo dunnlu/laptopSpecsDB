@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>Laptops</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newSpecs() { showform('insert'); }
+    function updateSpecs(pid) { showform('update'); }
+    function deleteSpecs(pid) { showform ('delete'); }
+    function browseSpecs() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseSpecs()">
+<h1>Laptops</h1>
+[ <a href="http://classwork.engr.oregonstate.edu:56294/wishlists">Wishlists</a> | <a href="http://classwork.engr.oregonstate.edu:56294/laptops">Laptops</a> | <a href="http://classwork.engr.oregonstate.edu:56294/deals">Deals</a> ]
+<p>Add a new Laptop, or modify an existing one.</p>
+<div id="browse">
+<p>
+  <a href="#" onClick="newSpecs()">New Laptop</a>
+</p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>brand</th>
+    <th>gpu</th>
+    <th>cpu</th>
+    <th>ram</th>
+    <th>storage</th>
+    <th>display</th>
+    <th>deals</th>
+    <th>edit</th>
+    <th>delete</th>
+  </tr>
+  <tr>
+    <td align="right" >1</td>   <!-- laptopID -->
+    <td >Zbook</td>             <!-- laptopName-->
+    <td>HP</td>                 <!-- brandName -->
+    <td>Nvidia RTX 2000</td>    <!-- gpu -->
+    <td>Intel i7 5.2 GHz</td>   <!-- cpu -->
+    <td>64gb</td>               <!-- ram -->
+    <td>2tb</td>                <!-- storage -->
+    <td>16"</td>                <!-- display -->
+    <td><a href="http://classwork.engr.oregonstate.edu:56294/deals">Deals</a></td>
+    <td><a href="#" onClick="updateSpecs('this.specsID')">Edit</a></td>
+    <td><a href="#" onclick="deleteSpecs('this.specsID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >1</td>           <!-- laptopID -->
+    <td >Thin GF63</td>                 <!-- laptopName-->
+    <td>MSI</td>                        <!-- brandName -->
+    <td>NVIDIA GeForce GTX 1650</td>    <!-- gpu -->
+    <td>Intel i7 4.7 GHz</td>           <!-- cpu -->
+    <td>16gb</td>                       <!-- ram -->
+    <td>512gb</td>                      <!-- storage -->
+    <td>16"</td>                        <!-- display -->
+    <td><a href="http://classwork.engr.oregonstate.edu:56294/deals">Deals</a></td>
+    <td><a href="#" onClick="updateSpecs('this.specsID')">Edit</a></td>
+    <td><a href="#" onclick="deleteSpecs('this.specsID')">Delete</a></td>
+  </tr>
+</table>
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addSpecs">
+        <legend><strong>Add Laptop</strong></legend>
+          <fieldset class="fields">
+            <label> Laptop name </label> <input type="text" name="specsName">
+            <label> brand </label> <input type="text" name="brandName">
+            <label> cpu </label> <input type="text" name="cpu">
+            <label> gpu </label> <input type="text" name="gpu">
+            <label> ram </label> <input type="text" name="ram">
+            <label> storage </label> <input type="text" name="internalStorage">
+            <label> display </label> <input type="text" name="displaySize">
+            <label> budget </label> <input type="text" name="budget">
+      </fieldset>
+          <input class="btn" type="submit" id="addSpecs" value="add">
+          <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
+	</form>
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateSpecs">
+        <legend><strong>Update Laptop</strong></legend>
+          <fieldset class="fields">
+          <label> Laptop name </label> <input type="text" name="specsName">
+          <label> brand </label> <input type="text" name="brandName">
+          <label> cpu </label> <input type="text" name="cpu">
+          <label> gpu </label> <input type="text" name="gpu">
+          <label> ram </label> <input type="text" name="ram">
+          <label> storage </label> <input type="text" name="internalStorage">
+          <label> display </label> <input type="text" name="displaySize">
+          <label> budget </label> <input type="text" name="budget">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveSpecs" value="save">
+          <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
+	</form>
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteSpecs">
+      <legend><strong>Delete Laptop</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="specsID" id="deleteSpecsID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Laptop</strong> </label> Joe's List
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteSpecs" value="Delete Specs">
+          <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>
