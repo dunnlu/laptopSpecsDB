@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>Wishlists</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newStores() { showform('insert'); }
+    function updateStores(pid) { showform('update'); }
+    function deleteStores(pid) { showform ('delete'); }
+    function browseStores() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseStores()">
+<h1>Stores</h1>
+[ <a href="wishlists.html">Wishlists</a> | <a href="laptops.html">Laptops</a> | <a href="deals.html">Deals</a> | <a href="results.html">Results</a> | <a href="stores.html">Stores</a> ]
+<p>Add or remove a store to find deals from.</p>
+<div id="browse">
+<p>
+  <a href="#" onClick="newStores()">New Store</a>
+</p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>store ID</th>
+    <th>name</th>
+    <th>url</th>
+    <th>edit</th>
+    <th>delete</th>
+  </tr>
+  <tr>
+    <td align="center" >1</td>
+    <td>HP</td>
+    <td>https://www.hp.com/us-en/home.html</td>
+    <td><a href="#" onClick="updateStores('this.StoresID')">Edit</a></td>
+    <td><a href="#" onclick="deleteStores('this.StoresID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="center" >1</td>
+    <td>QVC</td>
+    <td>https://www.qvc.com/</td>
+    <td><a href="#" onClick="updateStores('this.StoresID')">Edit</a></td>
+    <td><a href="#" onclick="deleteStores('this.StoresID')">Delete</a></td>
+  </tr>
+</table>
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addStores">
+        <legend><strong>Add Store</strong></legend>
+          <fieldset class="fields">
+            <label> name </label> <input type="text" name="storeName">
+            <label> url </label> <input type="text" name="url">
+      </fieldset>
+          <input class="btn" type="submit" id="addStores" value="add">
+          <input class="btn" type="button" value="cancel" onClick="browseStores()">
+	</form>
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateStores">
+        <legend><strong>Update Store</strong></legend>
+          <fieldset class="fields">
+            <label> name </label> <input type="text" name="storeName">
+            <label> url </label> <input type="text" name="url">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveStores" value="save">
+          <input class="btn" type="button" value="cancel" onClick="browseStores()">
+	</form>
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteStores">
+      <legend><strong>Delete Store</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="StoresID" id="deleteStoresID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Store</strong> </label> HP
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteStores" value="Delete Stores">
+          <input class="btn" type="button" value="cancel" onClick="browseStores()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>

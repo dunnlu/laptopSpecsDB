@@ -1,0 +1,146 @@
+<html>
+<head>
+<title>Wishlists</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newResults() { showform('insert'); }
+    function updateResults(pid) { showform('update'); }
+    function deleteResults(pid) { showform ('delete'); }
+    function browseResults() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseResults()">
+<h1>Results</h1>
+[ <a href="wishlists.html">Wishlists</a> | <a href="laptops.html">Laptops</a> | <a href="deals.html">Deals</a> | <a href="results.html">Results</a> | <a href="stores.html">Stores</a> ]
+<p>Remove or create a new Deal-to-Wishlist connection.</p>
+<div id="browse">
+<p>
+  <a href="#" onClick="newResults()">New Deal-to-Wishlist</a>
+</p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>wishlist ID</th>
+    <th>deal ID</th>
+    <th>wishlist name</th>
+    <th>deal laptop</th>
+    <th>deal price</th>
+    <th>edit</th>
+    <th>delete</th>
+  </tr>
+  <tr>
+    <td align="center" >1</td>
+    <td align="center" >1</td>
+    <td>Joe's List</td>
+    <td>Zbook</td>
+    <td>$2,759.00</td>
+    <td><a href="#" onClick="updateResults('this.ResultsID')">Edit</a></td>
+    <td><a href="#" onclick="deleteResults('this.ResultsID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="center" >1</td>
+    <td align="center" >2</td>
+    <td>Joe's List</td>
+    <td>Thin GF63</td>
+    <td>$1,299.00</td>
+    <td><a href="#" onClick="updateResults('this.ResultsID')">Edit</a></td>
+    <td><a href="#" onclick="deleteResults('this.ResultsID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="center" >2</td>
+    <td align="center" >3</td>
+    <td>Mariana's List</td>
+    <td>Omen</td>
+    <td>$1,999.98</td>
+    <td><a href="#" onClick="updateResults('this.ResultsID')">Edit</a></td>
+    <td><a href="#" onclick="deleteResults('this.ResultsID')">Delete</a></td>
+  </tr>
+</table>
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addResults">
+        <legend><strong>Link Deal-to-Wishlist</strong></legend>
+          <fieldset class="fields">
+            <label> wishlistID </label> <input type="text" name="wishlistID">
+            <label> dealID </label> <input type="text" name="dealID">
+      </fieldset>
+          <input class="btn" type="submit" id="addResults" value="add">
+          <input class="btn" type="button" value="cancel" onClick="browseResults()">
+	</form>
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateResults">
+        <legend><strong>Update Deal-to-Wishlist</strong></legend>
+          <fieldset class="fields">
+          <label> wishlist name </label> <input type="text" name="ResultsName">
+          <label> brand </label> <input type="text" name="brandName">
+          <label> cpu </label> <input type="text" name="cpu">
+          <label> gpu </label> <input type="text" name="gpu">
+          <label> ram </label> <input type="text" name="ram">
+          <label> storage </label> <input type="text" name="internalStorage">
+          <label> display </label> <input type="text" name="displaySize">
+          <label> budget </label> <input type="text" name="budget">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveResults" value="save">
+          <input class="btn" type="button" value="cancel" onClick="browseResults()">
+	</form>
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteResults">
+      <legend><strong>Delete Deal-to-Wishlist</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="ResultsID" id="deleteResultsID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Wishlist</strong> </label> Joe's List
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteResults" value="Delete Results">
+          <input class="btn" type="button" value="cancel" onClick="browseResults()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>
