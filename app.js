@@ -30,13 +30,13 @@ app.get('/laptops', function(req,res) {
 
 });
 
-app.get('/laptops', function(req,res) {
+app.get('/results', function(req,res) {
     console.log("Requested URL: ",req.url);
     res.sendFile(path.join(__dirname, 'htmlFiles/results.html'));
 
 });
 
-app.get('/laptops', function(req,res) {
+app.get('/stores', function(req,res) {
     console.log("Requested URL: ",req.url);
     res.sendFile(path.join(__dirname, 'htmlFiles/stores.html'));
 
