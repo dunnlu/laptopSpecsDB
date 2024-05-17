@@ -50,44 +50,44 @@
 <body onload="browseResults()">
 <h1>Results</h1>
 [ <a href="http://classwork.engr.oregonstate.edu:56294/specs">Specs</a> | <a href="http://classwork.engr.oregonstate.edu:56294/laptops">Laptops</a> | <a href="http://classwork.engr.oregonstate.edu:56294/deals">Deals</a> | <a href="http://classwork.engr.oregonstate.edu:56294/results">Results</a> | <a href="http://classwork.engr.oregonstate.edu:56294/stores">Stores</a> ]
-<p>Remove or create a new Deal-to-Wishlist connection.</p>
+<p>Add or delete a Specification-to-Deal association</p>
 <div id="browse">
 <p>
-  <a href="#" onClick="newResults()">New Deal-to-Wishlist</a>
+  <a href="#" onClick="newResults()">New association</a>
 </p>
 <table border="1" cellpadding="5">
   <tr>
-    <th>wishlist ID</th>
-    <th>deal ID</th>
-    <th>wishlist name</th>
+    <th>specsID</th>
+    <th>dealID</th>
+    <!-- <th>wishlist name</th>
     <th>deal laptop</th>
-    <th>deal price</th>
+    <th>deal price</th> -->
 
   </tr>
   <tr>
     <td align="center" >1</td>
     <td align="center" >1</td>
-    <td>Joe's List</td>
+    <!-- <td>Joe's List</td>
     <td>Zbook</td>
-    <td>$2,759.00</td>
+    <td>$2,759.00</td> -->
     <td><a href="#" onClick="updateResults('this.ResultsID')">Edit</a></td>
     <td><a href="#" onclick="deleteResults('this.ResultsID')">Delete</a></td>
   </tr>
   <tr>
     <td align="center" >1</td>
     <td align="center" >2</td>
-    <td>Joe's List</td>
+    <!-- <td>Joe's List</td>
     <td>Thin GF63</td>
-    <td>$1,299.00</td>
+    <td>$1,299.00</td> -->
     <td><a href="#" onClick="updateResults('this.ResultsID')">Edit</a></td>
     <td><a href="#" onclick="deleteResults('this.ResultsID')">Delete</a></td>
   </tr>
   <tr>
     <td align="center" >2</td>
     <td align="center" >3</td>
-    <td>Mariana's List</td>
+    <!-- <td>Mariana's List</td>
     <td>Omen</td>
-    <td>$1,999.98</td>
+    <td>$1,999.98</td> -->
     <td><a href="#" onClick="updateResults('this.ResultsID')">Edit</a></td>
     <td><a href="#" onclick="deleteResults('this.ResultsID')">Delete</a></td>
   </tr>
@@ -98,10 +98,10 @@
 </div> <!-- browse -->
 <div id="insert">
     <form method="POST" id="addResults">
-        <legend><strong>Link Deal-to-Wishlist</strong></legend>
+        <legend><strong>Create a new association</strong></legend>
         <fieldset class="fields">
-          <label for="specID">specID</label>
-          <select name="specID" id="specID">
+          <label for="specsID">specsID</label>
+          <select name="specsID" id="specsID">
               <option value="spec1">1</option>
               <option value="spec2">2</option>
               <!-- Add more options as needed -->
@@ -109,7 +109,6 @@
       
           <label for="dealID">dealID</label>
           <select name="dealID" id="dealID">
-              <option value="deal0">Null</option>
               <option value="deal1">1</option>
               <option value="deal2">2</option>
               <option value="deal3">3</option>
@@ -123,19 +122,24 @@
 <p>&nbsp;</p>
 <div id="update">
     <form method="POST" id="UpdateResults">
-        <legend><strong>Update Deal-to-Wishlist</strong></legend>
+        <legend><strong>Edit an association</strong></legend>
           <fieldset class="fields">
-          <label> wishlist name </label> <input type="text" name="ResultsName">
-          <label> brand </label> <input type="text" name="brandName">
-          <label> cpu </label> <input type="text" name="cpu">
-          <label> gpu </label> <input type="text" name="gpu">
-          <label> ram </label> <input type="text" name="ram">
-          <label> storage </label> <input type="text" name="internalStorage">
-          <label> display </label> <input type="text" name="displaySize">
-          <label> budget </label> <input type="text" name="budget">
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveResults" value="save">
-          <input class="btn" type="button" value="cancel" onClick="browseResults()">
+            <label for="specsID">specsID</label>
+            <select name="specsID" id="specsID">
+              <option value="spec1">1</option>
+              <option value="spec2">2</option>
+              <!-- Add more options as needed -->
+            </select>
+            <label for="dealID">dealID</label>
+            <select name="dealID" id="dealID">
+                <option value="deal1">1</option>
+                <option value="deal2">2</option>
+                <option value="deal3">3</option>
+                <!-- Add more options as needed -->
+
+          </fieldset>
+            <input class="btn" type="submit" id="UpdateSaveResults" value="save">
+            <input class="btn" type="button" value="cancel" onClick="browseResults()">
 	</form>
 </div><!-- update -->
 <p>&nbsp;</p>

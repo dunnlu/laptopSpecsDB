@@ -124,8 +124,11 @@ DELETE FROM Results WHERE dealID IN (
 		AND timeEnd < NOW()
 	)
 
+-- update a deal to NULLify a Store Relationship
+UPDATE Deals SET storeID = NULL WHERE dealID = :storeIDInput;
 
------- Deals queries -- manutal association and dis-association (M-to-M)
+
+------ Results queries -- manutal association and dis-association (M-to-M)
 
 
 -- associate a spec wishlist with a deal (M-to-M association)

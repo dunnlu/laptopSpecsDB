@@ -57,15 +57,14 @@
 </p>
 <table border="1" cellpadding="5">
   <tr>
-    <th>id</th>
-    <th>name</th>
-    <th>brand</th>
+    <th>laptopID</th>
+    <th>laptopName</th>
+    <th>brandName</th>
     <th>gpu</th>
     <th>cpu</th>
     <th>ram</th>
-    <th>storage</th>
-    <th>display</th>
-    <th>deals</th>
+    <th>internalStorage</th>
+    <th>displaySize</th>
 
   </tr>
   <tr>
@@ -116,14 +115,13 @@
     <form method="POST" id="addSpecs">
         <legend><strong>Add Laptop</strong></legend>
           <fieldset class="fields">
-            <label> Laptop name </label> <input type="text" name="specsName">
-            <label> brand </label> <input type="text" name="brandName">
-            <label> cpu </label> <input type="text" name="cpu">
+            <label> laptopName </label> <input type="text" name="specsName">
+            <label> brandName </label> <input type="text" name="brandName">
             <label> gpu </label> <input type="text" name="gpu">
+            <label> cpu </label> <input type="text" name="cpu">
             <label> ram </label> <input type="text" name="ram">
-            <label> storage </label> <input type="text" name="internalStorage">
-            <label> display </label> <input type="text" name="displaySize">
-            <label> budget </label> <input type="text" name="budget">
+            <label> internalStorage </label> <input type="text" name="internalStorage">
+            <label> displaySize </label> <input type="text" name="displaySize">
       </fieldset>
           <input class="btn" type="submit" id="addSpecs" value="add">
           <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
@@ -134,14 +132,13 @@
     <form method="POST" id="UpdateSpecs">
         <legend><strong>Update Laptop</strong></legend>
           <fieldset class="fields">
-          <label> Laptop name </label> <input type="text" name="specsName">
-          <label> brand </label> <input type="text" name="brandName">
-          <label> cpu </label> <input type="text" name="cpu">
-          <label> gpu </label> <input type="text" name="gpu">
-          <label> ram </label> <input type="text" name="ram">
-          <label> storage </label> <input type="text" name="internalStorage">
-          <label> display </label> <input type="text" name="displaySize">
-          <label> budget </label> <input type="text" name="budget">
+            <label> laptopName </label> <input type="text" name="specsName">
+            <label> brandName </label> <input type="text" name="brandName">
+            <label> gpu </label> <input type="text" name="gpu">
+            <label> cpu </label> <input type="text" name="cpu">
+            <label> ram </label> <input type="text" name="ram">
+            <label> internalStorage </label> <input type="text" name="internalStorage">
+            <label> displaySize </label> <input type="text" name="displaySize">
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveSpecs" value="save">
           <input class="btn" type="button" value="cancel" onClick="browseSpecs()">

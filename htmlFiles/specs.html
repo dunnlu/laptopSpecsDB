@@ -57,14 +57,14 @@
 </p>
 <table border="1" cellpadding="5">
   <tr>
-    <th>id</th>
-    <th>wishlist</th>
-    <th>brand</th>
+    <th>specsID</th>
+    <th>specsName</th>
+    <th>brandName</th>
     <th>gpu</th>
     <th>cpu</th>
     <th>ram</th>
-    <th>storage</th>
-    <th>display</th>
+    <th>internalStorage</th>
+    <th>displaySize</th>
     <th>budget</th>
 
   </tr>
@@ -103,15 +103,15 @@
 </div> <!-- browse -->
 <div id="insert">
     <form method="POST" id="addSpecs">
-        <legend><strong>Add Wishlist</strong></legend>
+        <legend><strong>Add Specs Wishlist</strong></legend>
           <fieldset class="fields">
-            <label> wishlist name </label> <input type="text" name="specsName">
-            <label> brand </label> <input type="text" name="brandName">
-            <label> cpu </label> <input type="text" name="cpu">
-            <label> gpu </label> <input type="text" name="gpu">
+            <label> specsName </label> <input type="text" name="specsName">
+            <label> brandName </label> <input type="text" name="brandName">
+            <label> gpu </label> <input type="text" name="cpu">
+            <label> cpu </label> <input type="text" name="gpu">
             <label> ram </label> <input type="text" name="ram">
-            <label> storage </label> <input type="text" name="internalStorage">
-            <label> display </label> <input type="text" name="displaySize">
+            <label> internalStorage </label> <input type="text" name="internalStorage">
+            <label> displaySize </label> <input type="text" name="displaySize">
             <label> budget </label> <input type="text" name="budget">
       </fieldset>
           <input class="btn" type="submit" id="addSpecs" value="add">
@@ -121,15 +121,15 @@
 <p>&nbsp;</p>
 <div id="update">
     <form method="POST" id="UpdateSpecs">
-        <legend><strong>Update Wishlist</strong></legend>
+        <legend><strong>Update Specs Wishlist</strong></legend>
           <fieldset class="fields">
-          <label> wishlist name </label> <input type="text" name="specsName">
-          <label> brand </label> <input type="text" name="brandName">
-          <label> cpu </label> <input type="text" name="cpu">
-          <label> gpu </label> <input type="text" name="gpu">
+          <label> specsName </label> <input type="text" name="specsName">
+          <label> brandName </label> <input type="text" name="brandName">
+          <label> gpu </label> <input type="text" name="cpu">
+          <label> cpu </label> <input type="text" name="gpu">
           <label> ram </label> <input type="text" name="ram">
-          <label> storage </label> <input type="text" name="internalStorage">
-          <label> display </label> <input type="text" name="displaySize">
+          <label> internalStorage </label> <input type="text" name="internalStorage">
+          <label> displaySize </label> <input type="text" name="displaySize">
           <label> budget </label> <input type="text" name="budget">
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveSpecs" value="save">
@@ -139,7 +139,7 @@
 <p>&nbsp;</p>
 <div id="delete" style="display: block">
   <form method="POST" id="deleteSpecs">
-      <legend><strong>Delete Wishlist</strong></legend>
+      <legend><strong>Delete Specs Wishlist</strong></legend>
           <fieldset class="fields">
           <p>Are you sure you wish to delete the following?</p>
           <input type="hidden" name="specsID" id="deleteSpecsID" value="1">

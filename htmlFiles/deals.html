@@ -57,11 +57,11 @@
 </p>
 <table border="1" cellpadding="5">
   <tr>
-    <th>deal ID</th>
+    <th>dealID</th>
     <th>laptopID</th>
     <th>storeID</th>
-    <th>start</th>
-    <th>end</th>
+    <th>timeStart</th>
+    <th>timeEnd</th>
     <th>stock</th>
     <th>price</th>
     <th>url</th>
@@ -126,8 +126,8 @@
               <option value="store2">2</option>
               <!-- Add more options as needed -->
             </select>
-            <label> start </label> <input type="text" name="start">
-            <label> end </label> <input type="text" name="gpu">
+            <label> timeStart </label> <input type="text" name="start">
+            <label> timeEnd </label> <input type="text" name="gpu">
             <label> stock </label> <input type="text" name="ram">
             <label> price </label> <input type="text" name="internalStorage">
             <label> url </label> <input type="text" name="url">
@@ -141,10 +141,22 @@
     <form method="POST" id="UpdateDeals">
         <legend><strong>Update Deal</strong></legend>
         <fieldset class="fields">
-          <label> laptop </label> <input type="text" name="laptopID">
-          <label> store </label> <input type="text" name="laptopID">
-          <label> start </label> <input type="text" name="storeID">
-          <label> end </label> <input type="text" name="gpu">
+          <label for="laptopID"> laptopID </label> 
+            <select name="laptopID" id="laptopID">
+              <option value="laptop1">1</option>
+              <option value="laptop2">2</option>
+              <option value="laptop3">3</option>
+              <!-- Add more options as needed -->
+            </select>
+            <label for="storeID"> storeID </label> 
+            <select name="storeID" id="storeID">
+              <option value="store0">Null</option>
+              <option value="store1">1</option>
+              <option value="store2">2</option>
+              <!-- Add more options as needed -->
+            </select>
+          <label> timeStart </label> <input type="text" name="storeID">
+          <label> timeEnd </label> <input type="text" name="gpu">
           <label> stock </label> <input type="text" name="ram">
           <label> price </label> <input type="text" name="price">
           <label> url </label> <input type="text" name="url">
