@@ -99,10 +99,23 @@
 <div id="insert">
     <form method="POST" id="addResults">
         <legend><strong>Link Deal-to-Wishlist</strong></legend>
-          <fieldset class="fields">
-            <label> specID </label> <input type="text" name="wishlistID">
-            <label> dealID </label> <input type="text" name="dealID">
-      </fieldset>
+        <fieldset class="fields">
+          <label for="specID">specID</label>
+          <select name="specID" id="specID">
+              <option value="spec1">1</option>
+              <option value="spec2">2</option>
+              <!-- Add more options as needed -->
+          </select>
+      
+          <label for="dealID">dealID</label>
+          <select name="dealID" id="dealID">
+              <option value="deal0">Null</option>
+              <option value="deal1">1</option>
+              <option value="deal2">2</option>
+              <option value="deal3">3</option>
+              <!-- Add more options as needed -->
+          </select>
+      </fieldset>      
           <input class="btn" type="submit" id="addResults" value="add">
           <input class="btn" type="button" value="cancel" onClick="browseResults()">
 	</form>

@@ -58,8 +58,8 @@
 <table border="1" cellpadding="5">
   <tr>
     <th>deal ID</th>
-    <th>laptop</th>
-    <th>store</th>
+    <th>laptopID</th>
+    <th>storeID</th>
     <th>start</th>
     <th>end</th>
     <th>stock</th>
@@ -69,8 +69,8 @@
   </tr>
   <tr>
     <td align="center" >1</td>     <!-- dealID -->
-    <td>Zbook</td>               <!-- laptopID -->
-    <td>HP</td>                  <!-- storeID -->
+    <td>1</td>               <!-- laptopID -->
+    <td>1</td>                  <!-- storeID -->
     <td>2024-04-30</td>          <!-- startTime -->
     <td></td>                    <!-- endTime -->
     <td>high</td>                <!-- stock -->
@@ -81,8 +81,8 @@
   </tr>
   <tr>
     <td align="center" >2</td>   <!-- dealID -->
-    <td>Thin GF63</td>           <!-- laptopID -->
-    <td>QVC</td>                 <!-- storeID -->
+    <td>2</td>           <!-- laptopID -->
+    <td>2</td>                 <!-- storeID -->
     <td>2024-04-30</td>          <!-- startTime -->
     <td></td>                    <!-- endTime -->
     <td>low</td>                 <!-- stock -->
@@ -93,8 +93,8 @@
   </tr>
   <tr>
     <td align="center" >3</td>   <!-- dealID -->
-    <td>Omen</td>                <!-- laptopID -->
-    <td>QVC</td>                 <!-- storeID -->
+    <td>3</td>                <!-- laptopID -->
+    <td>2</td>                 <!-- storeID -->
     <td>2024-04-30</td>          <!-- startTime -->
     <td></td>                    <!-- endTime -->
     <td>low</td>                 <!-- stock -->
@@ -112,9 +112,21 @@
     <form method="POST" id="addDeals">
         <legend><strong>Add Deal</strong></legend>
           <fieldset class="fields">
-            <label> laptop </label> <input type="text" name="laptopID">
-            <label> store </label> <input type="text" name="laptopID">
-            <label> start </label> <input type="text" name="storeID">
+            <label for="laptopID"> laptopID </label> 
+            <select name="laptopID" id="laptopID">
+              <option value="laptop1">1</option>
+              <option value="laptop2">2</option>
+              <option value="laptop3">3</option>
+              <!-- Add more options as needed -->
+            </select>
+            <label for="storeID"> storeID </label> 
+            <select name="storeID" id="storeID">
+              <option value="store0">Null</option>
+              <option value="store1">1</option>
+              <option value="store2">2</option>
+              <!-- Add more options as needed -->
+            </select>
+            <label> start </label> <input type="text" name="start">
             <label> end </label> <input type="text" name="gpu">
             <label> stock </label> <input type="text" name="ram">
             <label> price </label> <input type="text" name="internalStorage">
