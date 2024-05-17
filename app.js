@@ -12,9 +12,9 @@ app.get('/', function(req,res) {
 });
 
 
-app.get('/wishlists', function(req,res) {
+app.get('/specs', function(req,res) {
     console.log("Requested URL: ",req.url);
-    res.sendFile(path.join(__dirname, 'htmlFiles/wishlists.html'));
+    res.sendFile(path.join(__dirname, 'htmlFiles/specs.html'));
 
 });
 
