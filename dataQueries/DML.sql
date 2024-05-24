@@ -1,15 +1,15 @@
--------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
 -- Data Manipulation Queries
--------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
 --
 -- Authors:  		Team 136 - Lucas Dunn & Christian Ritchie
--- Date:	  		2024-05-16
+-- Date:	  		2024-05-23
 -- Project:  		LaptopSpecsDB
--- Phase:	  		Step 3, Final
+-- Phase:	  		Step 4
 --
--------------------------------------------------------------------------------
------- Spec wishlist queries
--------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+-- --- Spec wishlist queries
+-- ----------------------------------------------------------------------------
 
 -- get all spec wishlist spec IDs, names, and information to populate main page
 SELECT * FROM Specs
@@ -43,9 +43,9 @@ SET
 	budget = :budgetInput
 WHERE specsID= :specsID_from_update_form
 
--------------------------------------------------------------------------------
------- Laptop queries
--------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+-- --- Laptop queries
+-- ----------------------------------------------------------------------------
 
 -- add a new laptop
 INSERT INTO Laptops (laptopName, brandName, gpu, cpu, ram, internalStorage, displaySize) 
@@ -75,9 +75,9 @@ SET
 WHERE 
 	laptopID = :laptopID_from_the_update_form
 
--------------------------------------------------------------------------------
------- Deal queries (M-to-M associations facilitated by 'Results' table)
--------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+-- --- Deal queries (M-to-M associations facilitated by 'Results' table)
+-- ----------------------------------------------------------------------------
 
 -- add a deal
 INSERT INTO Deals (laptopID, storeID, timeStart, timeEnd, stock, price, url)
@@ -98,7 +98,7 @@ SELECT * FROM Deals WHERE dealID = (
 	AND (timeEnd > NOW() OR timeEnd IS NULL)
 
 
------- Deals queries -- selective association and dis-association (M-to-M)
+-- -- Deals queries -- selective association and dis-association (M-to-M)
 
 
 -- populate 'results' intersection table with deals given a specific deal
@@ -128,7 +128,7 @@ DELETE FROM Results WHERE dealID IN (
 UPDATE Deals SET storeID = NULL WHERE dealID = :storeIDInput;
 
 
------- Results queries -- manutal association and dis-association (M-to-M)
+-- -- Results queries -- manutal association and dis-association (M-to-M)
 
 
 -- associate a spec wishlist with a deal (M-to-M association)
@@ -137,9 +137,9 @@ INSERT INTO Results (specsID, dealID) VALUES (:specsID, :dealID)
 -- dis-associate a spec wishlist from a deal (M-to-M dis-association)
 DELETE FROM Results WHERE specsID = :specsID AND dealID = :dealID
 
--------------------------------------------------------------------------------
------- Store queries
--------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+-- -- Store queries
+-- ----------------------------------------------------------------------------
 
 -- retrieve all stores
 SELECT * FROM Stores
@@ -150,9 +150,9 @@ INSERT INTO Stores (storeName, url) VALUES (:storeNameInput, :urlInput)
 -- delete store
 DELETE FROM Stores WHERE storeID = :storeID
 
--------------------------------------------------------------------------------
------- potentially useful unused queries and subqueries
--------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+-- -- potentially useful unused queries and subqueries
+-- ----------------------------------------------------------------------------
 
 -- populate 'results' intersection table; associating all spec wishlists with
 -- laptops with attributes that have a partial match to each specs attribute.
