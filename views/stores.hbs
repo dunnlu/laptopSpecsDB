@@ -19,6 +19,7 @@
 				document.getElementById('insert').style.display = 'none';
 				document.getElementById('update').style.display = 'block';
 				document.getElementById('delete').style.display = 'none';
+        document.getElementById('update-id').value = pid
 			}
 			else if (dowhat == 'delete'){
 				document.getElementById('browse').style.display = 'none';
@@ -42,8 +43,8 @@
 			}
 		}
     function newStores() { showform('insert'); }
-    function updateStores(pid) { showform('update'); }
-    function deleteStores(pid, name) { showform ('delete',pid); }
+    function updateStores(pid) { showform('update',pid); }
+    function deleteStores(pid) { showform ('delete',pid); }
     function browseStores() { showform ('browse'); }
     function showAll() { showform ('all'); }
 </script>
@@ -71,7 +72,7 @@
     <td>{{this.storeName}}</td>
     <td>{{this.url}}</td>
     <td><a href="#" onClick="updateStores('{{this.storeID}}')">Edit</a></td>
-    <td><a href="#" onclick="deleteStores('{{this.storeID}}', '{{this.storeName}}')">Delete</a></td>
+    <td><a href="#" onclick="deleteStores('{{this.storeID}}')">Delete</a></td>
   </tr>
   {{/each}}
 </table>
@@ -93,11 +94,12 @@
 
 <p>&nbsp;</p>
 <div id="update">
-    <form method="POST" id="UpdateStores">
+    <form method="POST" id="UpdateStores" action="/updateStore">
         <legend><strong>Update Store</strong></legend>
           <fieldset class="fields">
-            <label> storeName </label> <input type="text" name="storeName">
-            <label> url </label> <input type="text" name="url">
+            <label> storeID </label> <input type="text" name="update-id" id="update-id">
+            <label> storeName </label> <input type="text" name="update-storeName" id="update-storeName">
+            <label> url </label> <input type="text" name="update-url" id="update-url">
           </fieldset>
           <input class="btn" type="submit" id="UpdateSaveStores" value="save">
           <input class="btn" type="button" value="cancel" onClick="browseStores()">

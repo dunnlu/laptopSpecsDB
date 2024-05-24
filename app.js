@@ -153,7 +153,61 @@ app.post('/deleteStore', function(req, res)
     })
 });
 
+app.post('/updateStore', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
 
+
+    id = data['update-id'];
+    
+    let storeName = data['update-storeName'];
+    if (storeName==='')
+    {
+        storeName = 'NULL'
+    }
+
+    let url = data['update-url'];
+    if (url==='')
+    {
+        url = 'NULL'
+    }
+
+
+    // Create the query and run it on the database
+    query1 = `UPDATE Stores SET storeName = "${storeName}", url = "${url}" WHERE storeID = ${id};`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on bsg_people
+            query2 = `SELECT * FROM Stores;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log("redirecting")
+                    res.redirect('/stores')
+                }
+            })
+        }
+    })
+});
 
 app.listen(PORT, function(){
     console.log("Listening on port " + PORT + ".")
