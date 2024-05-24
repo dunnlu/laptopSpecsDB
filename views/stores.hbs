@@ -55,7 +55,7 @@
 <p>
   <a href="#" onClick="newStores()">New Store</a>
 </p>
-<table border="1" cellpadding="5">
+<table border="1" cellpadding="5" id="store-table">
   <tr>
     <th>storeID</th>
     <th>storeName</th>
@@ -65,7 +65,7 @@
 
   {{#each data}}
   <tr>
-    <td align="center" >1</td>
+    <td align="center" >{{this.storeID}}</td>
     <td>{{this.storeName}}</td>
     <td>{{this.url}}</td>
     <td><a href="#" onClick="updateStores('this.StoresID')">Edit</a></td>
@@ -78,16 +78,17 @@
 <p>&nbsp;</p>
 </div> <!-- browse -->
 <div id="insert">
-    <form method="POST" id="addStores">
+    <form method="post" id="addStore" action="/addStore">
         <legend><strong>Add Store</strong></legend>
-          <fieldset class="fields">
-            <label> storeName </label> <input type="text" name="storeName">
-            <label> url </label> <input type="text" name="url">
-      </fieldset>
-          <input class="btn" type="submit" id="addStores" value="add">
-          <input class="btn" type="button" value="cancel" onClick="browseStores()">
-	</form>
+        <fieldset class="fields">
+          <label> storeName </label> <input type="text" name="input-storeName" id="input-storeName">
+          <label> url </label> <input type="text" name="input-url" id="input-url">
+        </fieldset>
+        <input class="btn" type="submit" id="addStore" value="add">
+        <input class="btn" type="button" value="cancel" onClick="browseStores()">
+	  </form>
 </div><!-- insert -->
+
 <p>&nbsp;</p>
 <div id="update">
     <form method="POST" id="UpdateStores">
@@ -95,10 +96,10 @@
           <fieldset class="fields">
             <label> storeName </label> <input type="text" name="storeName">
             <label> url </label> <input type="text" name="url">
-      </fieldset>
+          </fieldset>
           <input class="btn" type="submit" id="UpdateSaveStores" value="save">
           <input class="btn" type="button" value="cancel" onClick="browseStores()">
-	</form>
+	  </form>
 </div><!-- update -->
 <p>&nbsp;</p>
 <div id="delete" style="display: block">
