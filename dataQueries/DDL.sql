@@ -3,9 +3,9 @@
 -- ----------------------------------------------------------------------------
 --
 -- Authors:  		Team 136 - Lucas Dunn & Christian Ritchie
--- Date:	  		2024-05-16
+-- Date:	  		2024-05-30
 -- Project:  		LaptopSpecsDB
--- Phase:	  		Step 4
+-- Phase:	  		Step 5
 --
 -- ----------------------------------------------------------------------------
 
@@ -60,10 +60,10 @@ CREATE TABLE `Deals` (
 LOCK TABLES `Deals` WRITE;
 /*!40000 ALTER TABLE `Deals` DISABLE KEYS */;
 INSERT INTO `Deals` VALUES 
-(1,1,1,'2024-04-30 00:00:00',NULL,'high',2759.00,'https://www.hp.com/us-en/shop/mdp/hp-zbook-power-15-mobile-workstation'),
-(2,2,2,'2024-04-30 00:00:00',NULL,'low',1299.00,'https://www.qvc.com/msi-thin-gf63-156-144hz-gaming-laptop-i7-rtx40-60-16gb-512gb.product.E318491.html'),
-(3,3,2,'2024-04-30 00:00:00',NULL,'low',1999.98,'https://www.omen.com/us/en/laptops/2019-omen-15/specifications.html'),
-(4,4,3,'2024-05-16 00:00:00',NULL,NULL,1849.99,'https://www.newegg.com/blue-msi-ge-series-ge76-raider-11ue-046-gaming/p/2WC-000C-0DDJ4?Item=9SIADG3J7R0690&cm_sp=SP-_-1798083-_-0-_-2-_-9SIADG3J7R0690-_-MSI%20Nvidia%20GeForce-_-msi-_-2');
+(1,1,1,'2024-04-30 00:00:00','NULL','high',2759.00,'https://www.hp.com/us-en/shop/mdp/hp-zbook-power-15-mobile-workstation'),
+(2,2,2,'2024-04-30 00:00:00','NULL','low',1299.00,'https://www.qvc.com/msi-thin-gf63-156-144hz-gaming-laptop-i7-rtx40-60-16gb-512gb.product.E318491.html'),
+(3,3,2,'2024-04-30 00:00:00','NULL','low',1999.98,'https://www.omen.com/us/en/laptops/2019-omen-15/specifications.html'),
+(4,4,3,'2024-05-16 00:00:00','NULL','NULL',1849.99,'https://www.newegg.com/blue-msi-ge-series-ge76-raider-11ue-046-gaming/p/2WC-000C-0DDJ4?Item=9SIADG3J7R0690&cm_sp=SP-_-1798083-_-0-_-2-_-9SIADG3J7R0690-_-MSI%20Nvidia%20GeForce-_-msi-_-2');
 /*!40000 ALTER TABLE `Deals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,9 +156,9 @@ CREATE TABLE `Specs` (
 LOCK TABLES `Specs` WRITE;
 /*!40000 ALTER TABLE `Specs` DISABLE KEYS */;
 INSERT INTO `Specs` VALUES 
-  (1,'Joe\'s List',NULL,'NVIDIA GeForce RTX 2060','0',16,512,14,3000.00),
-  (2,'Mariana\'s List','H',NULL,'Intel i7 5 GHz',16,128,16,2000.00),
-  (3,'Schindler''s list',NULL,'Nvidia Geforce RTX',NULL,32,NULL,16,1900.00);
+  (1,'Joe\'s List','NULL','NVIDIA GeForce RTX 2060','NULL',16,512,14,3000.00),
+  (2,'Mariana\'s List','HP','NULL','Intel i7 5 GHz',16,128,16,2000.00),
+  (3,'Schindler''s list','NULL','Nvidia Geforce RTX','NULL',32,'NULL',16,1900.00);
 /*!40000 ALTER TABLE `Specs` ENABLE KEYS */;
 UNLOCK TABLES;
 

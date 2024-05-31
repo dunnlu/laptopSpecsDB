@@ -2,10 +2,10 @@
 -- Data Manipulation Queries
 -- ----------------------------------------------------------------------------
 --
--- Authors:  		Team 136 - Lucas Dunn & Christian Ritchie
--- Date:	  		2024-05-23
+-- Authors:  	Team 136 - Lucas Dunn & Christian Ritchie
+-- Date:	  	2024-05-30
 -- Project:  		LaptopSpecsDB
--- Phase:	  		Step 4
+-- Phase:	  		Step 5
 --
 -- ----------------------------------------------------------------------------
 -- --- Spec wishlist queries

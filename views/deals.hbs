@@ -1,0 +1,175 @@
+<html>
+<head>
+<title>Deals</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat,pid,lid,sid) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+                document.getElementById('update-id').value = pid;
+                document.getElementById('update-laptopID').value = lid;
+                document.getElementById('update-storeID').value = sid;
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+                document.getElementById('delete-id').value = pid;
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newDeals() { showform('insert'); }
+    function updateDeal(pid,lid,sid) { showform('update', pid, lid, sid); }
+    function deleteDeal(pid) { showform ('delete', pid); }
+    function browseDeals() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseDeals()">
+<h1>Deals</h1>
+[ <a href="/specs">Specs</a> | <a href="/laptops">Laptops</a> | <a href="/deals">Deals</a> | <a href="/results">Results</a> | <a href="/stores">Stores</a> ]
+<p>View existing deals, or modify an existing one.</p>
+<div id="browse">
+<p>
+  <a href="#" onClick="newDeals()">New Deal</a>
+</p>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>dealID</th>
+        <th>laptopID</th>
+        <th>storeID</th>
+        <th>timeStart</th>
+        <th>timeEnd</th>
+        <th>stock</th>
+        <th>price</th>
+        <th>url</th>
+    </tr>
+
+    {{#each data}}
+    <tr>
+        <td align="center" >{{this.dealID}}</td>     <!-- dealID -->
+        <td>{{this.laptopID}}</td>               <!-- laptopID -->
+        <td>{{this.storeID}}</td>                  <!-- storeID -->
+        <td>{{this.timeStart}}</td>          <!-- timeStart -->
+        <td>{{this.timeEnd}}</td>                    <!-- timeEnd -->
+        <td>{{this.stock}}</td>                <!-- stock -->
+        <td>{{this.price}}</td>           <!-- price -->
+        <td><a href={{this.url}}, target=”_blank”>link</a></td>
+        <td><a href="#" onClick="updateDeal('{{this.dealID}}', '{{this.laptopID}}', '{{this.storeID}}')">Edit</a></td>
+        <td><a href="#" onclick="deleteDeal('{{this.dealID}}')">Delete</a></td>
+        
+    </tr>
+    {{/each}}
+
+</table>
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+
+<p>&nbsp;</p>
+</div> <!-- browse -->
+
+<div id="insert">
+    <form method="POST" id="addDeals" action="/addDeal">
+        <legend><strong>Add Deal</strong></legend>
+          <fieldset class="fields">
+            <label for="input-laptopID"> laptopID </label> 
+            <select name="input-laptopID" id="input-laptopID" >
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <!-- Add more options as needed -->
+            </select>
+            <label for="input-storeID"> storeID </label> 
+            <select name="input-storeID" id="input-storeID">
+              <option value=NULL>Null</option>
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <!-- Add more options as needed -->
+            </select>
+            <label> timeStart </label> <input type="date" name="input-timeStart" id="input-timeStart">
+            <label> timeEnd </label> <input type="date" name="input-timeEnd" id="input-timeEnd">
+            <label> stock </label> <input type="text" name="input-stock" id="input-stock">
+            <label> price </label> <input type="text" name="input-price" id="input-price">
+            <label> url </label> <input type="text" name="input-url" id="input-url">
+      </fieldset>
+          <input class="btn" type="submit" id="addDeals" value="add">
+          <input class="btn" type="button" value="cancel" onClick="browseDeals()">
+	</form>
+
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="updateDeal" action="/updateDeal">
+        <legend><strong>Update Deal</strong></legend>
+        <fieldset class="fields">
+          <label> dealID </label> <input type="text" name="update-id" id="update-id">
+          <label for="update-laptopID"> laptopID </label> 
+            <select name="update-laptopID" id="update-laptopID">
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <!-- Add more options as needed -->
+            </select>
+            <label for="update-storeID"> storeID </label> 
+            <select name="update-storeID" id="update-storeID">
+              <option value=NULL>Null</option>
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <!-- Add more options as needed -->
+            </select>
+          <label> timeStart </label> <input type="date" name="update-timeStart" id="update-timeStart">
+          <label> timeEnd </label> <input type="date" name="update-timeEnd" id="update-timeEnd">
+          <label> stock </label> <input type="text" name="update-stock" id="update-stock">
+          <label> price </label> <input type="text" name="update-price" id="update-price">
+          <label> url </label> <input type="text" name="update-url" id="update-url">
+    </fieldset>
+        <input class="btn" type="submit" id="updateDeal" value="add">
+        <input class="btn" type="button" value="cancel" onClick="browseDeals()">
+	</form>
+</div><!-- update -->
+
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id='deleteDeal' action="/deleteDeal">
+      <legend><strong>Delete Deal</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="DealsID" id="deleteDealID" value="1">
+            <label><strong>ID:</strong></label><input type="text" name="delete-id" id="delete-id"> 
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteDeal" value="Delete Deals">
+          <input class="btn" type="button" value="cancel" onClick="browseDeals()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>
