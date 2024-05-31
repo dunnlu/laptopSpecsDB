@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>Specs</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat,pid) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+                document.getElementById('update-id').value = pid
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+                document.getElementById('delete-id').value = pid;
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newSpecs() { showform('insert'); }
+    function updateSpecs(pid) { showform('update',pid); }
+    function deleteSpecs(pid) { showform ('delete',pid); }
+    function browseSpecs() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseSpecs()">
+<h1>Specs</h1>
+[ <a href="/specs">Specs</a> | <a href="/laptops">Laptops</a> | <a href="/deals">Deals</a> | <a href="/results">Results</a> | <a href="/stores">Stores</a> ]
+<p>Create new specs wishlist, or modify an existing one.</p>
+<div id="browse">
+<p>
+  <a href="#" onClick="newSpecs()">New Wishlist</a>
+</p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>specsID</th>
+    <th>specsName</th>
+    <th>brandName</th>
+    <th>gpu</th>
+    <th>cpu</th>
+    <th>ram</th>
+    <th>internalStorage</th>
+    <th>displaySize</th>
+    <th>budget</th>
+
+  </tr>
+
+  {{#each data}}
+  <tr>
+    <td align="right" >{{this.specsID}}</td>
+    <td >{{this.specsName}}</td>
+    <td align="right" >{{this.brandName}}</td><!-- brand -->
+    <td>{{this.gpu}}</td> <!-- gpu -->
+    <td>{{this.cpu}}</td>          <!-- cpu -->
+    <td>{{this.ram}}</td>             <!-- ram -->
+    <td>{{this.internalStorage}}</td>          <!-- storage -->
+    <td>{{this.displaySize}}</td>             <!-- display -->
+    <td>{{this.budget}}</td>         <!-- budget -->
+    <td><a href="/deals">Deals</a></td>
+    <td><a href="#" onClick="updateSpecs('{{this.specsID}}')">Edit</a></td>
+    <td><a href="#" onclick="deleteSpecs('{{this.specsID}}')">Delete</a></td>
+  </tr>
+  {{/each}}
+</table>
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addSpecs" action="/addSpec">
+        <legend><strong>Add Specs Wishlist</strong></legend>
+          <fieldset class="fields">
+            <label> specsName </label> <input type="text" name="input-specsName" id="input-specsName">
+            <label> brandName </label> <input type="text" name="input-brandName" id="input-brandName">
+            <label> gpu </label> <input type="text" name="input-gpu" id="input-gpu">
+            <label> cpu </label> <input type="text" name="input-cpu" id="input-cpu">
+            <label> ram </label> <input type="text" name="input-ram" id="input-ram">
+            <label> internalStorage </label> <input type="text" name="input-internalStorage" id="input-internalStorage">
+            <label> displaySize </label> <input type="text" name="input-displaySize" id="input-displaySize">
+            <label> budget </label> <input type="text" name="input-budget" id="input-budget">
+      </fieldset>
+          <input class="btn" type="submit" id="addSpecs" value="add">
+          <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
+	</form>
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateSpecs" action="/updateSpec">
+        <legend><strong>Update Specs Wishlist</strong></legend>
+          <fieldset class="fields">
+          <label> specsID </label> <input type="text" name="update-id" id="update-id">
+          <label> specsName </label> <input type="text" name="update-specsName" id="update-specsName">
+          <label> brandName </label> <input type="text" name="update-brandName" id="update-brandName">
+          <label> gpu </label> <input type="text" name="update-gpu" id="update-gpu">
+          <label> cpu </label> <input type="text" name="update-cpu" id="update-cpu">
+          <label> ram </label> <input type="text" name="update-ram" id="update-ram">
+          <label> internalStorage </label> <input type="text" name="update-internalStorage" id="update-internalStorage">
+          <label> displaySize </label> <input type="text" name="update-displaySize" id="update-displaySize">
+          <label> budget </label> <input type="text" name="update-budget" id="update-budget">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveSpecs" value="save">
+          <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
+	</form>
+</div><!-- update -->
+
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteSpecs" action="/deleteSpec">
+      <legend><strong>Delete Specs Wishlist</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="specsID" id="deleteSpecsID" value="1">
+          <label><strong>ID:</strong></label><input type="text" name="delete-id" id="delete-id">
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteSpecs" value="Delete Specs">
+          <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>
