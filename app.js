@@ -1,7 +1,7 @@
 // Express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 46745;                // Set a port number at the top so it's easy to change in the future
+PORT        = 46747;                // Set a port number at the top so it's easy to change in the future
 const path = require('path')
 
 //Database
@@ -26,14 +26,18 @@ app.get('/', function(req,res) {
 });
 
 
-app.get('/specs', function(req,res) {
-    let query1 = "SELECT * FROM Specs;";               // Define our query
+app.get('/specs', function(req, res) {
+    let query1 = "SELECT * FROM Specs;";  // Define our query
 
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+    db.pool.query(query1, function(error, rows, fields) {
+        // Format the budget values
+        let specs = rows.map(spec => {
+            spec.budget = spec.budget ? spec.budget.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : null;
+            return spec;
+        });
 
-        res.render('specs', {data: rows});                  // Render the index.hbs file, and also send the renderer
-    })  
-
+        res.render('specs', {data: specs});  // Render the specs.hbs file, and also send the renderer
+    });
 });
 
 app.post('/addSpec', function(req, res) 
@@ -318,14 +322,71 @@ app.post('/updateSpec', function(req, res)
 });
 
 
-app.get('/deals', function(req,res){
-    let query1 = "SELECT * FROM Deals;";               // Define our query
+// app.get('/deals', function(req,res){
+//     let query1 = "SELECT * FROM Deals;";               // Define our query
 
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+//     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-        res.render('deals', {data: rows});                  // Render the index.hbs file, and also send the renderer
-    })  
+//         res.render('deals', {data: rows});                  // Render the index.hbs file, and also send the renderer
+//     })  
 
+// });
+
+app.get('/deals', function(req, res) {
+    let query1 = 
+        `SELECT 
+            Deals.dealID, 
+            Deals.laptopID, 
+            Deals.storeID, 
+            Deals.timeStart, 
+            Deals.timeEnd, 
+            Deals.stock, 
+            Deals.price, 
+            Deals.url,
+            Laptops.laptopName,
+            Stores.storeName
+        FROM 
+            Deals
+        JOIN 
+            Laptops ON Deals.laptopID = Laptops.laptopID
+        JOIN 
+            Stores ON Deals.storeID = Stores.storeID
+        ORDER BY 
+            Deals.dealID;`;
+    let query2 = "SELECT * FROM Laptops;";
+    let query3 = "SELECT * FROM Stores;";
+
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            res.status(500).send(error);
+            return;
+        }
+        // let deals = rows;
+        let deals = rows.map(deal => {
+            deal.timeStart = deal.timeStart ? new Date(deal.timeStart).toISOString().split('T')[0] : null;
+            deal.timeEnd = deal.timeEnd ? new Date(deal.timeEnd).toISOString().split('T')[0] : null;
+            deal.price = deal.price ? deal.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : null;
+            return deal;
+        });
+
+        db.pool.query(query2, function(error, rows, fields) {
+            if (error) {
+                res.status(500).send(error);
+                return;
+            }
+            let laptops = rows;
+
+            db.pool.query(query3, function(error, rows, fields) {
+                if (error) {
+                    res.status(500).send(error);
+                    return;
+                }
+                let stores = rows;
+                // Render the index.hbs file, and also send the renderer
+                res.render('deals', {data: deals, laptops: laptops, stores: stores});  
+            });
+        });
+    });
 });
 
 app.post('/addDeal', function(req, res) 

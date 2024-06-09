@@ -68,19 +68,18 @@
     <th>internalStorage</th>
     <th>displaySize</th>
     <th>budget</th>
-
   </tr>
 
   {{#each data}}
   <tr>
-    <td align="right" >{{this.specsID}}</td>
+    <td align="center">{{this.specsID}}</td>
     <td >{{this.specsName}}</td>
-    <td align="right" >{{this.brandName}}</td><!-- brand -->
+    <td align="center">{{this.brandName}}</td><!-- brand -->
     <td>{{this.gpu}}</td> <!-- gpu -->
     <td>{{this.cpu}}</td>          <!-- cpu -->
-    <td>{{this.ram}}</td>             <!-- ram -->
-    <td>{{this.internalStorage}}</td>          <!-- storage -->
-    <td>{{this.displaySize}}</td>             <!-- display -->
+    <td align="center">{{this.ram}}</td>             <!-- ram -->
+    <td align="center">{{this.internalStorage}}</td>          <!-- storage -->
+    <td align="center">{{this.displaySize}}</td>             <!-- display -->
     <td>{{this.budget}}</td>         <!-- budget -->
     <td><a href="/deals">Deals</a></td>
     <td><a href="#" onClick="updateSpecs('{{this.specsID}}')">Edit</a></td>
@@ -115,7 +114,7 @@
     <form method="POST" id="UpdateSpecs" action="/updateSpec">
         <legend><strong>Update Specs Wishlist</strong></legend>
           <fieldset class="fields">
-          <label> specsID </label> <input type="text" name="update-id" id="update-id">
+          <label> specsID </label> <input type="text" name="update-id" id="update-id" readonly>
           <label> specsName </label> <input type="text" name="update-specsName" id="update-specsName">
           <label> brandName </label> <input type="text" name="update-brandName" id="update-brandName">
           <label> gpu </label> <input type="text" name="update-gpu" id="update-gpu">

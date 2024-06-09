@@ -3,9 +3,9 @@
 -- ----------------------------------------------------------------------------
 --
 -- Authors:  	Team 136 - Lucas Dunn & Christian Ritchie
--- Date:	  	2024-05-30
--- Project:  		LaptopSpecsDB
--- Phase:	  		Step 5
+-- Date:	  	2024-06-10
+-- Project:  	LaptopSpecsDB
+-- Phase:	  	Step 6 - Final
 --
 -- ----------------------------------------------------------------------------
 -- --- Spec wishlist queries

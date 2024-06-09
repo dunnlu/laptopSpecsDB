@@ -70,16 +70,15 @@
         <th>price</th>
         <th>url</th>
     </tr>
-
     {{#each data}}
     <tr>
-        <td align="center" >{{this.dealID}}</td>     <!-- dealID -->
-        <td>{{this.laptopID}}</td>               <!-- laptopID -->
-        <td>{{this.storeID}}</td>                  <!-- storeID -->
-        <td>{{this.timeStart}}</td>          <!-- timeStart -->
-        <td>{{this.timeEnd}}</td>                    <!-- timeEnd -->
-        <td>{{this.stock}}</td>                <!-- stock -->
-        <td>{{this.price}}</td>           <!-- price -->
+        <td align="center" >{{this.dealID}}</td>             <!-- dealID -->
+        <td>{{this.laptopID}}  --  {{this.laptopName}}</td>     <!-- laptopID -->
+        <td>{{this.storeID}}  --  {{this.storeName}}</td>       <!-- storeID -->
+        <td>{{this.timeStart}}</td>                          <!-- timeStart -->
+        <td>{{this.timeEnd}}</td>                            <!-- timeEnd -->
+        <td align="center">{{this.stock}}</td>                              <!-- stock -->
+        <td>{{this.price}}</td>                              <!-- price -->
         <td><a href={{this.url}}, target=”_blank”>link</a></td>
         <td><a href="#" onClick="updateDeal('{{this.dealID}}', '{{this.laptopID}}', '{{this.storeID}}')">Edit</a></td>
         <td><a href="#" onclick="deleteDeal('{{this.dealID}}')">Delete</a></td>
@@ -98,21 +97,22 @@
         <legend><strong>Add Deal</strong></legend>
           <fieldset class="fields">
             <label for="input-laptopID"> laptopID </label> 
-            <select name="input-laptopID" id="input-laptopID" >
-              <option value=1>1</option>
-              <option value=2>2</option>
-              <option value=3>3</option>
-              <option value=4>4</option>
-              <!-- Add more options as needed -->
+
+            <select name="input-laptopID" id="input-laptopID">
+              {{!-- <option value="">LaptopID</option> --}}
+              {{#each laptops}}
+              <option value="{{this.laptopID}}">{{this.laptopID}} - {{this.laptopName}}</option>
+              {{/each}}
             </select>
+
             <label for="input-storeID"> storeID </label> 
             <select name="input-storeID" id="input-storeID">
-              <option value=NULL>Null</option>
-              <option value=1>1</option>
-              <option value=2>2</option>
-              <option value=3>3</option>
-              <!-- Add more options as needed -->
+              {{!-- <option value="">storeID</option> --}}
+              {{#each stores}}
+              <option value="{{this.storeID}}">{{this.storeID}} - {{this.storeName}}</option>
+              {{/each}}
             </select>
+
             <label> timeStart </label> <input type="date" name="input-timeStart" id="input-timeStart">
             <label> timeEnd </label> <input type="date" name="input-timeEnd" id="input-timeEnd">
             <label> stock </label> <input type="text" name="input-stock" id="input-stock">
@@ -129,23 +129,25 @@
     <form method="POST" id="updateDeal" action="/updateDeal">
         <legend><strong>Update Deal</strong></legend>
         <fieldset class="fields">
-          <label> dealID </label> <input type="text" name="update-id" id="update-id">
+          <label> dealID </label> <input type="text" name="update-id" id="update-id" readonly>
+          
           <label for="update-laptopID"> laptopID </label> 
-            <select name="update-laptopID" id="update-laptopID">
-              <option value=1>1</option>
-              <option value=2>2</option>
-              <option value=3>3</option>
-              <option value=4>4</option>
-              <!-- Add more options as needed -->
-            </select>
-            <label for="update-storeID"> storeID </label> 
-            <select name="update-storeID" id="update-storeID">
-              <option value=NULL>Null</option>
-              <option value=1>1</option>
-              <option value=2>2</option>
-              <option value=3>3</option>
-              <!-- Add more options as needed -->
-            </select>
+            
+          <select name="update-laptopID" id="update-laptopID">
+            {{!-- <option value="">LaptopID</option> --}}
+            {{#each laptops}}
+            <option value="{{this.laptopID}}">{{this.laptopID}} - {{this.laptopName}}</option>
+            {{/each}}
+          </select>
+
+          <label for="update-storeID"> storeID </label> 
+          <select name="update-storeID" id="update-storeID">
+            {{!-- <option value="">storeID</option> --}}
+            {{#each stores}}
+            <option value="{{this.storeID}}">{{this.storeID}} - {{this.storeName}}</option>
+            {{/each}}
+          </select>
+
           <label> timeStart </label> <input type="date" name="update-timeStart" id="update-timeStart">
           <label> timeEnd </label> <input type="date" name="update-timeEnd" id="update-timeEnd">
           <label> stock </label> <input type="text" name="update-stock" id="update-stock">
