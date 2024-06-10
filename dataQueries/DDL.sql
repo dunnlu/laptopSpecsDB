@@ -61,29 +61,30 @@ LOCK TABLES `Deals` WRITE;
 /*!40000 ALTER TABLE `Deals` DISABLE KEYS */;
 
 INSERT INTO `Deals` VALUES 
-(1,1,1,'2024-04-30','2024-07-30','high',2759.00,'https://www.hp.com/us-en/shop/mdp/hp-zbook-power-15-mobile-workstation'),
-(2,2,2,'2024-04-30',NULL,'low',1299.00,'https://www.qvc.com/msi-thin-gf63-156-144hz-gaming-laptop-i7-rtx40-60-16gb-512gb.product.E318491.html'),
-(3,3,2,'2024-04-30','2024-08-15','low',1999.98,'https://www.omen.com/us/en/laptops/2019-omen-15/specifications.html'),
-(4,4,3,'2024-05-16',NULL,NULL,1849.99,'https://www.newegg.com/blue-msi-ge-series-ge76-raider-11ue-046-gaming/p/2WC-000C-0DDJ4?Item=9SIADG3J7R0690&cm_sp=SP-_-1798083-_-0-_-2-_-9SIADG3J7R0690-_-MSI%20Nvidia%20GeForce-_-msi-_-2'),
-(5,5,4,'2024-05-01',NULL,'medium',2200.00,'https://www.bestbuy.com/site/lenovo-thinkpad-x1-carbon/'),
-(6,6,5,'2024-05-02','2024-08-31','high',3500.00,'https://www.amazon.com/macbook-pro/'),
-(7,7,6,'2024-05-03',NULL,'low',1800.00,'https://www.bhphotovideo.com/c/dell-xps-15'),
-(8,8,7,'2024-05-04',NULL,'medium',1400.00,'https://www.walmart.com/ip/hp-spectre-x360/'),
-(9,9,8,'2024-05-05',NULL,'high',1500.00,'https://www.target.com/p/microsoft-surface-laptop-4/'),
-(10,10,9,'2024-05-06',NULL,'low',1200.00,'https://www.costco.com/acer-aspire-7.html'),
-(11,11,10,'2024-05-07',NULL,'medium',1300.00,'https://www.microcenter.com/lenovo-legion-5'),
-(12,12,1,'2024-05-08','2024-07-20','high',2500.00,'https://www.hp.com/us-en/shop/razer-blade-15'),
-(13,13,2,'2024-05-09',NULL,'low',900.00,'https://www.qvc.com/acer-swift-3/'),
-(14,14,3,'2024-05-10',NULL,'medium',800.00,'https://www.newegg.com/asus-vivobook-s15/'),
-(15,15,4,'2024-05-11',NULL,'high',700.00,'https://www.bestbuy.com/site/hp-pavilion-15/'),
-(16,16,5,'2024-05-12','2024-09-01','low',1100.00,'https://www.amazon.com/hp-envy-13/'),
-(17,17,6,'2024-05-13',NULL,'medium',650.00,'https://www.bhphotovideo.com/c/dell-inspiron-15'),
-(18,18,7,'2024-05-14',NULL,'high',1400.00,'https://www.walmart.com/ip/lenovo-yoga-c940/'),
-(19,19,8,'2024-05-15',NULL,'low',1600.00,'https://www.target.com/p/lg-gram-17/'),
-(20,20,9,'2024-05-16','2024-10-05','medium',900.00,'https://www.costco.com/hp-probook-450.html');
+(1,15,1,'2024-04-30','2024-07-30','high',2759.00,'https://www.hp.com/us-en/shop/mdp/hp-zbook-power-15-mobile-workstation'),
+(2,3,2,'2024-04-30',NULL,'low',1299.00,'https://www.qvc.com/msi-thin-gf63-156-144hz-gaming-laptop-i7-rtx40-60-16gb-512gb.product.E318491.html'),
+(3,18,2,'2024-04-30','2024-08-15','low',1999.98,'https://www.omen.com/us/en/laptops/2019-omen-15/specifications.html'),
+(4,8,3,'2024-05-16',NULL,NULL,1849.99,'https://www.newegg.com/blue-msi-ge-series-ge76-raider-11ue-046-gaming/p/2WC-000C-0DDJ4?Item=9SIADG3J7R0690&cm_sp=SP-_-1798083-_-0-_-2-_-9SIADG3J7R0690-_-MSI%20Nvidia%20GeForce-_-msi-_-2'),
+(5,11,4,'2024-05-01',NULL,'medium',2200.00,'https://www.bestbuy.com/site/lenovo-thinkpad-x1-carbon/'),
+(6,7,5,'2024-05-02','2024-08-31','high',3500.00,'https://www.amazon.com/macbook-pro/'),
+(7,19,6,'2024-05-03',NULL,'low',1800.00,'https://www.bhphotovideo.com/c/dell-xps-15'),
+(8,10,7,'2024-05-04',NULL,'medium',1400.00,'https://www.walmart.com/ip/hp-spectre-x360/'),
+(9,14,8,'2024-05-05',NULL,'high',1500.00,'https://www.target.com/p/microsoft-surface-laptop-4/'),
+(10,1,9,'2024-05-06',NULL,'low',1200.00,'https://www.costco.com/acer-aspire-7.html'),
+(11,20,10,'2024-05-07',NULL,'medium',1300.00,'https://www.microcenter.com/lenovo-legion-5'),
+(12,2,1,'2024-05-08','2024-07-20','high',2500.00,'https://www.hp.com/us-en/shop/razer-blade-15'),
+(13,12,2,'2024-05-09',NULL,'low',900.00,'https://www.qvc.com/acer-swift-3/'),
+(14,4,3,'2024-05-10',NULL,'medium',800.00,'https://www.newegg.com/asus-vivobook-s15/'),
+(15,16,4,'2024-05-11',NULL,'high',700.00,'https://www.bestbuy.com/site/hp-pavilion-15/'),
+(16,9,5,'2024-05-12','2024-09-01','low',1100.00,'https://www.amazon.com/hp-envy-13/'),
+(17,6,6,'2024-05-13',NULL,'medium',650.00,'https://www.bhphotovideo.com/c/dell-inspiron-15'),
+(18,13,7,'2024-05-14',NULL,'high',1400.00,'https://www.walmart.com/ip/lenovo-yoga-c940/'),
+(19,17,8,'2024-05-15',NULL,'low',1600.00,'https://www.target.com/p/lg-gram-17/'),
+(20,5,9,'2024-05-16','2024-10-05','medium',900.00,'https://www.costco.com/hp-probook-450.html');
 
 /*!40000 ALTER TABLE `Deals` ENABLE KEYS */;
 UNLOCK TABLES;
+
 --
 -- Table structure for table `Laptops`
 --
@@ -131,36 +132,6 @@ INSERT INTO `Laptops` VALUES
   (18,'Yoga C940','Lenovo','Intel Iris Plus','Intel i7 4.9 GHz',16,1,14),
   (19,'Gram 17','LG','Intel Iris Xe','Intel i7 4.7 GHz',16,1,17),
   (20,'ProBook 450','HP','Intel UHD Graphics','Intel i5 3.8 GHz',8,256,15);
-  -- (21,'ExpertBook B9','ASUS','Intel UHD Graphics','Intel i7 4.9 GHz',16,1,14),
-  -- (22,'Latitude 7410','Dell','Intel UHD Graphics','Intel i7 4.8 GHz',16,1,14),
-  -- (23,'ThinkPad T14s','Lenovo','Intel UHD Graphics','Intel i7 4.9 GHz',16,1,14),
-  -- (24,'MacBook Air','Apple','Apple M1','Apple M1',8,256,13),
-  -- (25,'ROG Zephyrus G14','ASUS','NVIDIA GeForce GTX 1660 Ti','AMD Ryzen 9 4.3 GHz',16,1,14),
-  -- (26,'Nitro 5','Acer','NVIDIA GeForce RTX 2060','Intel i7 4.5 GHz',16,1,15),
-  -- (27,'Blade Stealth 13','Razer','Intel Iris Plus','Intel i7 4.6 GHz',16,512,13),
-  -- (28,'Elite Dragonfly','HP','Intel UHD Graphics','Intel i7 4.8 GHz',16,512,13),
-  -- (29,'Predator Helios 300','Acer','NVIDIA GeForce RTX 2060','Intel i7 5.0 GHz',16,1,15),
-  -- (30,'ZenBook 14','ASUS','Intel UHD Graphics','Intel i7 4.7 GHz',16,512,14),
-  -- (31,'Spectre Folio','HP','Intel UHD Graphics','Intel i7 4.5 GHz',16,512,13),
-  -- (32,'IdeaPad Flex 5','Lenovo','AMD Radeon Graphics','AMD Ryzen 5 4.0 GHz',8,256,14),
-  -- (33,'Alienware m15','Dell','NVIDIA GeForce RTX 2070','Intel i7 5.0 GHz',16,1,15),
-  -- (34,'ExpertBook P1','ASUS','Intel UHD Graphics','Intel i5 3.6 GHz',8,256,15),
-  -- (35,'Yoga Slim 7','Lenovo','Intel Iris Plus','Intel i7 4.9 GHz',16,512,14),
-  -- (36,'Pavilion x360','HP','Intel UHD Graphics','Intel i5 3.7 GHz',8,256,14),
-  -- (37,'MateBook X Pro','Huawei','NVIDIA GeForce MX250','Intel i7 4.8 GHz',16,512,13),
-  -- (38,'Surface Book 3','Microsoft','NVIDIA GeForce GTX 1660 Ti','Intel i7 4.5 GHz',32,1,15),
-  -- (39,'ProArt StudioBook','ASUS','NVIDIA Quadro RTX 5000','Intel Xeon 2.4 GHz',64,2,17),
-  -- (40,'ThinkPad X1 Extreme','Lenovo','NVIDIA GeForce GTX 1650','Intel i7 4.5 GHz',32,1,15),
-  -- (41,'Swift 5','Acer','Intel Iris Xe','Intel i7 4.7 GHz',16,1,14),
-  -- (42,'ENVY x360','HP','AMD Radeon Graphics','AMD Ryzen 5 4.0 GHz',8,256,15),
-  -- (43,'Omen 15','HP','NVIDIA GeForce RTX 2060','Intel i7 5.0 GHz',16,512,15),
-  -- (44,'Blade 17 Pro','Razer','NVIDIA GeForce RTX 2080','Intel i7 5.1 GHz',32,1,17),
-  -- (45,'Latitude 7310','Dell','Intel UHD Graphics','Intel i7 4.7 GHz',16,512,13),
-  -- (46,'ThinkBook 14s','Lenovo','Intel Iris Plus','Intel i7 4.9 GHz',16,512,14),
-  -- (47,'Pavilion 14','HP','Intel UHD Graphics','Intel i5 3.6 GHz',8,256,14),
-  -- (48,'Aspire 5','Acer','Intel UHD Graphics','Intel i5 3.9 GHz',8,512,15),
-  -- (49,'ZenBook Flip 15','ASUS','NVIDIA GeForce GTX 1650','Intel i7 4.7 GHz',16,1,15),
-  -- (50,'VivoBook 15','ASUS','Intel UHD Graphics','Intel i5 3.7 GHz',8,512,15);
 -- /*!40000 ALTER TABLE `Laptops` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,11 +199,13 @@ CREATE TABLE `Specs` (
 LOCK TABLES `Specs` WRITE;
 /*!40000 ALTER TABLE `Specs` DISABLE KEYS */;
 INSERT INTO `Specs` (specsID, specsName, brandName, gpu, cpu, ram, internalStorage, displaySize, budget) VALUES 
-  (1,'Joe\'s List', NULL, 'NVIDIA GeForce RTX 2060', NULL, 16, 512, 14, 3000.00),
+  (1,'Joe\'s List', NULL, 'NVIDIA GeForce RTX', NULL, 16, 512, 14, 3000.00),
   (2,'Mariana\'s List', 'HP', NULL, 'Intel i7 5 GHz', 16, 128, 16, 2000.00),
-  (3,'Schindler\'s List', NULL, 'Nvidia GeForce RTX', NULL, 32, NULL, 16, 1900.00),
+  (3,'Schindler\'s List', NULL, 'NVIDIA GeForce RTX', NULL, 32, NULL, 16, 1900.00),
   (4,'Jennay\'s AMD Thing', NULL, 'AMD Radeon', 'AMD Ryzen', NULL, NULL, NULL, 2500.00),
-  (5,'Benny Wants GeForce', NULL, 'Nvidia GeForce', NULL, NULL, 1024, NULL, 1500.00);
+  (5,'Benny Wants RTX', NULL, 'GeForce RTX', NULL, NULL, NULL, NULL, NULL),
+  (6,'Jenny Wants HP', 'HP', NULL, NULL, NULL, NULL, NULL, NULL),
+  (7,'GIVE RITCHIE ALL', NULL, NULL, NULL, NULL, NULL, NULL, 100000);
 /*!40000 ALTER TABLE `Specs` ENABLE KEYS */;
 UNLOCK TABLES;
 

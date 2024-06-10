@@ -25,6 +25,7 @@ app.get('/', function(req,res) {
 
 });
 
+// ---------------------------- Specs Methods ----------------------------- //
 
 app.get('/specs', function(req, res) {
     let query1 = "SELECT * FROM Specs;";  // Define our query
@@ -46,94 +47,32 @@ app.post('/addSpec', function(req, res)
     let data = req.body;
 
     // Capture NULL values
-    let specsName = data['input-specsName'];
-    if (specsName==='')
-    {
-        specsName = 'NULL'
-    }
+    let specsName = data['input-specsName'] === '' ? null : data['input-specsName'];
+    let brandName = data['input-brandName'] === '' ? null : data['input-brandName'];
+    let gpu = data['input-gpu'] === '' ? null : data['input-gpu'];
+    let cpu = data['input-cpu'] === '' ? null : data['input-cpu'];
+    let ram = data['input-ram'] === '' ? null : data['input-ram'];
+    let internalStorage = data['input-internalStorage'] === '' ? null : data['input-internalStorage'];
+    let displaySize = data['input-displaySize'] === '' ? null : data['input-displaySize'];
+    let budget = data['input-budget'] === '' ? null : data['input-budget'];
 
-    let brandName = data['input-brandName'];
-    if (brandName==='')
-    {
-        brandName = 'NULL'
-    }
-
-    let gpu = data['input-gpu'];
-    if (gpu==='')
-    {
-        gpu = 'NULL'
-    }
-
-    let cpu = data['input-cpu'];
-    if (cpu==='')
-    {
-        cpu = 'NULL'
-    }
-
-    let ram = data['input-ram'];
-    if (ram==='')
-    {
-        ram = 'NULL'
-    }
-
-    let internalStorage = data['input-internalStorage'];
-    if (internalStorage==='')
-    {
-        internalStorage = 'NULL'
-    }
-
-    let displaySize = data['input-displaySize'];
-    if (displaySize==='')
-    {
-        displaySize = 'NULL'
-    }
-
-    let budget = data['input-budget'];
-    if (budget==='')
-    {
-        budget = 'NULL'
-    }
-
-
-
-
-    // Create the query and run it on the database
     query1 = `INSERT INTO Specs (specsName, brandName, gpu, cpu, ram, internalStorage, displaySize, budget) 
-    VALUES (
-        "${specsName}", 
-        "${brandName}", 
-        "${gpu}", 
-        "${cpu}", 
-        "${ram}", 
-        "${internalStorage}",
-        "${displaySize}", 
-        "${budget}"
-        )`;
-    db.pool.query(query1, function(error, rows, fields){
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
+
+    db.pool.query(query1, [specsName, brandName, gpu, cpu, ram, internalStorage, displaySize, budget], function(error, rows, fields) {
         // Check to see if there was an error
         if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error)
             res.sendStatus(400);
-        }
-        else
-        {
-            // If there was no error, perform a SELECT * on bsg_people
-            query2 = `SELECT * FROM Specs;`;
-            db.pool.query(query2, function(error, rows, fields){
+        } else {
 
-                // If there was an error on the second query, send a 400
+            query2 = `SELECT * FROM Specs;`;
+            db.pool.query(query2, function(error, rows, fields) {
                 if (error) {
-                    
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
                     console.log(error);
                     res.sendStatus(400);
-                }
-                // If all went well, send the results of the query back.
-                else
-                {
+                } else {
                     console.log("redirecting")
                     res.redirect('/specs')
                 }
@@ -141,7 +80,6 @@ app.post('/addSpec', function(req, res)
         }
     })
 });
-
 
 app.post('/deleteSpec', function(req, res) 
 {
@@ -184,153 +122,89 @@ app.post('/deleteSpec', function(req, res)
     })
 });
 
-
 app.post('/updateSpec', function(req, res) 
 {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-
-
-    let updateString = ``;
-    let notFirst = false;
-
     // Capture NULL values
+    let specsName = data['update-specsName'] === '' ? null : data['update-specsName'];
+    let brandName = data['update-brandName'] === '' ? null : data['update-brandName'];
+    let gpu = data['update-gpu'] === '' ? null : data['update-gpu'];
+    let cpu = data['update-cpu'] === '' ? null : data['update-cpu'];
+    let ram = data['update-ram'] === '' ? null : data['update-ram'];
+    let internalStorage = data['update-internalStorage'] === '' ? null : data['update-internalStorage'];
+    let displaySize = data['update-displaySize'] === '' ? null : data['update-displaySize'];
+    let budget = data['update-budget'] === '' ? null : data['update-budget'];
 
-    id = data['update-id'];
+    let updateFields = [];
+    let updateValues = [];
 
-    let specsName = data['update-specsName'];
-    if (specsName!=='')
-    {
-        updateString = `specsName = "${specsName}"`;
-        notFirst=true;
+    if (specsName !== null) {
+        updateFields.push(`specsName = ?`);
+        updateValues.push(specsName);
+    }
+    if (brandName !== null) {
+        updateFields.push(`brandName = ?`);
+        updateValues.push(brandName);
+    }
+    if (gpu !== null) {
+        updateFields.push(`gpu = ?`);
+        updateValues.push(gpu);
+    }
+    if (cpu !== null) {
+        updateFields.push(`cpu = ?`);
+        updateValues.push(cpu);
+    }
+    if (ram !== null) {
+        updateFields.push(`ram = ?`);
+        updateValues.push(ram);
+    }
+    if (internalStorage !== null) {
+        updateFields.push(`internalStorage = ?`);
+        updateValues.push(internalStorage);
+    }
+    if (displaySize !== null) {
+        updateFields.push(`displaySize = ?`);
+        updateValues.push(displaySize);
+    }
+    if (budget !== null) {
+        updateFields.push(`budget = ?`);
+        updateValues.push(budget);
     }
 
-    let brandName = data['update-brandName'];
-    if (brandName!=='')
-    {
-        if (notFirst) {
-            updateString+=`, `;
-        }
-        updateString+=`brandName = "${brandName}"`;
-        notFirst = true;
-    }
+    if (updateFields.length > 0) {
+        updateValues.push(data['update-id']); // Add id to the end of the array for the WHERE clause
 
-    let gpu = data['update-gpu'];
-    if (gpu!=='')
-    {
-        if (notFirst) {
-            updateString+=`, `;
-        }
-        updateString+=`gpu = "${gpu}"`;
-        notFirst = true;
-    }
-
-    let cpu = data['update-cpu'];
-    if (cpu!=='')
-    {
-        if (notFirst) {
-            updateString+=`, `;
-        }
-        updateString+=`cpu = "${cpu}"`;
-        notFirst = true;
-    }
-
-    let ram = data['update-ram'];
-    if (ram!=='')
-    {
-        if (notFirst) {
-            updateString+=`, `;
-        }
-        updateString+=`ram = "${ram}"`;
-        notFirst = true;
-    }
-
-    let internalStorage = data['update-internalStorage'];
-    if (internalStorage!=='')
-    {
-        if (notFirst) {
-            updateString+=`, `;
-        }
-        updateString+=`internalStorage = "${internalStorage}"`;
-        notFirst = true;
-    }
-
-    let displaySize = data['update-displaySize'];
-    if (displaySize!=='')
-    {
-        if (notFirst) {
-            updateString+=`, `;
-        }
-        updateString+=`displaySize = "${displaySize}"`;
-        notFirst = true;
-    }
-
-    let budget = data['update-budget'];
-    if (budget!=='')
-    {
-        if (notFirst) {
-            updateString+=`, `;
-        }
-        updateString+=`budget = "${budget}"`;
-        notFirst = true;
-    }
-
-    if (notFirst) {
         // Create the query and run it on the database
-        query1 = `UPDATE Specs 
-        SET 
-            ${updateString}
-        WHERE specsID= ${id}`;
-        db.pool.query(query1, function(error, rows, fields){
-
+        let query1 = `UPDATE Specs SET ${updateFields.join(', ')} WHERE specsID = ?`;
+        db.pool.query(query1, updateValues, function(error, rows, fields) {
             // Check to see if there was an error
             if (error) {
-
-                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                console.log(error)
+                console.log(error);
                 res.sendStatus(400);
-            }
-            else
-            {
-                // If there was no error, perform a SELECT * on bsg_people
-                query2 = `SELECT * FROM Specs;`;
-                db.pool.query(query2, function(error, rows, fields){
-
+            } else {
+                // If there was no error, perform a SELECT * on Specs
+                let query2 = `SELECT * FROM Specs;`;
+                db.pool.query(query2, function(error, rows, fields) {
                     // If there was an error on the second query, send a 400
                     if (error) {
-                        
-                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
                         console.log(error);
                         res.sendStatus(400);
+                    } else {
+                        // If all went well, send the results of the query back.
+                        console.log("redirecting");
+                        res.redirect('/specs');
                     }
-                    // If all went well, send the results of the query back.
-                    else
-                    {
-                        console.log("redirecting")
-                        res.redirect('/specs')
-                    }
-                })
+                });
             }
-        })
+        });
     } else {
-        res.redirect('/specs')
+        res.redirect('/specs');
     }
-
-
-    
 });
 
-
-// app.get('/deals', function(req,res){
-//     let query1 = "SELECT * FROM Deals;";               // Define our query
-
-//     db.pool.query(query1, function(error, rows, fields){    // Execute the query
-
-//         res.render('deals', {data: rows});                  // Render the index.hbs file, and also send the renderer
-//     })  
-
-// });
+// ---------------------------- Deals Methods ----------------------------- //
 
 app.get('/deals', function(req, res) {
     let query1 = 
@@ -652,6 +526,8 @@ app.post('/updateDeal', function(req, res)
     
 });
 
+// --------------------------- Laptops Methods ---------------------------- //
+
 app.get('/laptops', function(req,res) {
     let query1 = "SELECT * FROM Laptops;";               // Define our query
 
@@ -757,7 +633,6 @@ app.post('/addLaptop', function(req, res)
     })
 });
 
-
 app.post('/deleteLaptop', function(req, res) 
 {
     // Capture the incoming data and parse it back to a JS object
@@ -798,7 +673,6 @@ app.post('/deleteLaptop', function(req, res)
         }
     })
 });
-
 
 app.post('/updateLaptop', function(req, res) 
 {
@@ -927,11 +801,118 @@ app.post('/updateLaptop', function(req, res)
     
 });
 
-app.get('/results', function(req,res) {
-    console.log("Requested URL: ",req.url);
-    res.sendFile(path.join(__dirname, 'htmlFiles/results.html'));
+// --------------------------- Results Methods ---------------------------- //
 
+app.get('/results', function(req, res) {
+    let disableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=0;`;
+    let enableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=1;`;
+    let dropTableQuery = `DROP TABLE IF EXISTS Results;`;
+    let createTableQuery = `
+        CREATE TABLE Results (
+            specsID int(11) NOT NULL,
+            dealID int(11) NOT NULL,
+            PRIMARY KEY (specsID, dealID),
+            KEY dealID (dealID),
+            CONSTRAINT Results_ibfk_1 FOREIGN KEY (specsID) REFERENCES Specs (specsID) ON DELETE CASCADE,
+            CONSTRAINT Results_ibfk_2 FOREIGN KEY (dealID) REFERENCES Deals (dealID) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+    `;
+    let updateResultsQuery = `
+        INSERT INTO Results (specsID, dealID)
+        SELECT DISTINCT 
+            Specs.specsID, 
+            Deals.dealID 
+        FROM Specs
+        INNER JOIN Laptops ON (
+            (Specs.brandName IS NULL OR Laptops.brandName LIKE CONCAT('%', LOWER(Specs.brandName), '%'))
+            AND (Specs.gpu IS NULL OR Laptops.gpu LIKE CONCAT('%', LOWER(Specs.gpu), '%'))
+            AND (Specs.cpu IS NULL OR Laptops.cpu LIKE CONCAT('%', LOWER(Specs.cpu), '%'))
+            AND (Specs.ram IS NULL OR Specs.ram = 0 OR Laptops.ram >= Specs.ram)
+            AND (Specs.internalStorage IS NULL OR Specs.internalStorage = 0 OR Laptops.internalStorage >= Specs.internalStorage)
+            AND (Specs.displaySize IS NULL OR Specs.displaySize = 0 OR Laptops.displaySize >= Specs.displaySize)
+        )
+        INNER JOIN Deals ON Laptops.laptopID = Deals.laptopID
+        WHERE (Specs.budget IS NULL or Specs.budget = 0.00 OR Deals.price IS NULL OR Specs.budget >= Deals.price);`;
+    let query1 = `
+        SELECT 
+            Results.specsID, 
+            Specs.specsName, 
+            Results.dealID, 
+            Deals.price, 
+            Laptops.laptopName
+        FROM 
+            Results
+        INNER JOIN Specs ON Results.specsID = Specs.specsID
+        INNER JOIN Deals ON Results.dealID = Deals.dealID
+        INNER JOIN Laptops ON Deals.laptopID = Laptops.laptopID;`;
+    let query2 = "SELECT specsID, specsName FROM Specs;";
+    let query3 = `
+        SELECT Deals.dealID, Deals.price, Laptops.laptopName 
+        FROM Deals 
+        JOIN Laptops ON Deals.laptopID = Laptops.laptopID;`;
+
+    db.pool.query(disableForeignKeyChecks, function(error, result, fields) {
+        if (error) {
+            res.status(500).send(error);
+            return;
+        }
+
+        db.pool.query(dropTableQuery, function(error, dropResult, fields) {
+            if (error) {
+                res.status(500).send(error);
+                return;
+            }
+
+            db.pool.query(createTableQuery, function(error, createResult, fields) {
+                if (error) {
+                    res.status(500).send(error);
+                    return;
+                }
+
+                db.pool.query(updateResultsQuery, function(error, updateResult, fields) {
+                    if (error) {
+                        res.status(500).send(error);
+                        return;
+                    }
+
+                    db.pool.query(enableForeignKeyChecks, function(error, enableResult, fields) {
+                        if (error) {
+                            res.status(500).send(error);
+                            return;
+                        }
+
+                        db.pool.query(query1, function(error, results, fields) {
+                            if (error) {
+                                res.status(500).send(error);
+                                return;
+                            }
+
+                            db.pool.query(query2, function(error, specs, fields) {
+                                if (error) {
+                                    res.status(500).send(error);
+                                    return;
+                                }
+
+                                db.pool.query(query3, function(error, deals, fields) {
+                                    if (error) {
+                                        res.status(500).send(error);
+                                        return;
+                                    }
+
+                                    res.render('results', {data: results, specs: specs, deals: deals});
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
 });
+
+
+
+// ---------------------------- Stores Methods ---------------------------- //
 
 app.get('/stores', function(req,res) {
     let query1 = "SELECT * FROM Stores;";               // Define our query
@@ -1105,6 +1086,7 @@ app.post('/updateStore', function(req, res)
         res.redirect('/stores')
     }
 });
+
 
 app.listen(PORT, function(){
     console.log("Listening on port " + PORT + ".")
