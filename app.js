@@ -313,8 +313,6 @@ app.post('/addDeal', function(req, res)
     }
 
 
-
-
     // Create the query and run it on the database
     query1 = `INSERT INTO Deals (laptopID, storeID, timeStart, timeEnd, stock, price, url) 
     VALUES (
@@ -803,36 +801,115 @@ app.post('/updateLaptop', function(req, res)
 
 // --------------------------- Results Methods ---------------------------- //
 
+// Get method to update associations on results page load
+// app.get('/results', function(req, res) {
+//     let disableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=0;`;
+//     let enableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=1;`;
+//     let dropTableQuery = `DROP TABLE IF EXISTS Results;`;
+//     let createTableQuery = `
+//         CREATE TABLE Results (
+//             specsID int(11) NOT NULL,
+//             dealID int(11) NOT NULL,
+//             PRIMARY KEY (specsID, dealID),
+//             KEY dealID (dealID),
+//             CONSTRAINT Results_ibfk_1 FOREIGN KEY (specsID) REFERENCES Specs (specsID) ON DELETE CASCADE,
+//             CONSTRAINT Results_ibfk_2 FOREIGN KEY (dealID) REFERENCES Deals (dealID) ON DELETE CASCADE
+//         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+//     `;
+//     let updateResultsQuery = `
+//         INSERT INTO Results (specsID, dealID)
+//         SELECT DISTINCT 
+//             Specs.specsID, 
+//             Deals.dealID 
+//         FROM Specs
+//         INNER JOIN Laptops ON (
+//             (Specs.brandName IS NULL OR Laptops.brandName LIKE CONCAT('%', LOWER(Specs.brandName), '%'))
+//             AND (Specs.gpu IS NULL OR Laptops.gpu LIKE CONCAT('%', LOWER(Specs.gpu), '%'))
+//             AND (Specs.cpu IS NULL OR Laptops.cpu LIKE CONCAT('%', LOWER(Specs.cpu), '%'))
+//             AND (Specs.ram IS NULL OR Specs.ram = 0 OR Laptops.ram >= Specs.ram)
+//             AND (Specs.internalStorage IS NULL OR Specs.internalStorage = 0 OR Laptops.internalStorage >= Specs.internalStorage)
+//             AND (Specs.displaySize IS NULL OR Specs.displaySize = 0 OR Laptops.displaySize >= Specs.displaySize)
+//         )
+//         INNER JOIN Deals ON Laptops.laptopID = Deals.laptopID
+//         WHERE (Specs.budget IS NULL or Specs.budget = 0.00 OR Deals.price IS NULL OR Specs.budget >= Deals.price);`;
+//     let query1 = `
+//         SELECT 
+//             Results.specsID, 
+//             Specs.specsName, 
+//             Results.dealID, 
+//             Deals.price, 
+//             Laptops.laptopName
+//         FROM 
+//             Results
+//         INNER JOIN Specs ON Results.specsID = Specs.specsID
+//         INNER JOIN Deals ON Results.dealID = Deals.dealID
+//         INNER JOIN Laptops ON Deals.laptopID = Laptops.laptopID;`;
+//     let query2 = "SELECT specsID, specsName FROM Specs;";
+//     let query3 = `
+//         SELECT Deals.dealID, Deals.price, Laptops.laptopName 
+//         FROM Deals 
+//         JOIN Laptops ON Deals.laptopID = Laptops.laptopID;`;
+
+//     db.pool.query(disableForeignKeyChecks, function(error, result, fields) {
+//         if (error) {
+//             res.status(500).send(error);
+//             return;
+//         }
+
+//         db.pool.query(dropTableQuery, function(error, dropResult, fields) {
+//             if (error) {
+//                 res.status(500).send(error);
+//                 return;
+//             }
+
+//             db.pool.query(createTableQuery, function(error, createResult, fields) {
+//                 if (error) {
+//                     res.status(500).send(error);
+//                     return;
+//                 }
+
+//                 db.pool.query(updateResultsQuery, function(error, updateResult, fields) {
+//                     if (error) {
+//                         res.status(500).send(error);
+//                         return;
+//                     }
+
+//                     db.pool.query(enableForeignKeyChecks, function(error, enableResult, fields) {
+//                         if (error) {
+//                             res.status(500).send(error);
+//                             return;
+//                         }
+
+//                         db.pool.query(query1, function(error, results, fields) {
+//                             if (error) {
+//                                 res.status(500).send(error);
+//                                 return;
+//                             }
+
+//                             db.pool.query(query2, function(error, specs, fields) {
+//                                 if (error) {
+//                                     res.status(500).send(error);
+//                                     return;
+//                                 }
+
+//                                 db.pool.query(query3, function(error, deals, fields) {
+//                                     if (error) {
+//                                         res.status(500).send(error);
+//                                         return;
+//                                     }
+
+//                                     res.render('results', {data: results, specs: specs, deals: deals});
+//                                 });
+//                             });
+//                         });
+//                     });
+//                 });
+//             });
+//         });
+//     });
+// });
+
 app.get('/results', function(req, res) {
-    let disableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=0;`;
-    let enableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=1;`;
-    let dropTableQuery = `DROP TABLE IF EXISTS Results;`;
-    let createTableQuery = `
-        CREATE TABLE Results (
-            specsID int(11) NOT NULL,
-            dealID int(11) NOT NULL,
-            PRIMARY KEY (specsID, dealID),
-            KEY dealID (dealID),
-            CONSTRAINT Results_ibfk_1 FOREIGN KEY (specsID) REFERENCES Specs (specsID) ON DELETE CASCADE,
-            CONSTRAINT Results_ibfk_2 FOREIGN KEY (dealID) REFERENCES Deals (dealID) ON DELETE CASCADE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-    `;
-    let updateResultsQuery = `
-        INSERT INTO Results (specsID, dealID)
-        SELECT DISTINCT 
-            Specs.specsID, 
-            Deals.dealID 
-        FROM Specs
-        INNER JOIN Laptops ON (
-            (Specs.brandName IS NULL OR Laptops.brandName LIKE CONCAT('%', LOWER(Specs.brandName), '%'))
-            AND (Specs.gpu IS NULL OR Laptops.gpu LIKE CONCAT('%', LOWER(Specs.gpu), '%'))
-            AND (Specs.cpu IS NULL OR Laptops.cpu LIKE CONCAT('%', LOWER(Specs.cpu), '%'))
-            AND (Specs.ram IS NULL OR Specs.ram = 0 OR Laptops.ram >= Specs.ram)
-            AND (Specs.internalStorage IS NULL OR Specs.internalStorage = 0 OR Laptops.internalStorage >= Specs.internalStorage)
-            AND (Specs.displaySize IS NULL OR Specs.displaySize = 0 OR Laptops.displaySize >= Specs.displaySize)
-        )
-        INNER JOIN Deals ON Laptops.laptopID = Deals.laptopID
-        WHERE (Specs.budget IS NULL or Specs.budget = 0.00 OR Deals.price IS NULL OR Specs.budget >= Deals.price);`;
     let query1 = `
         SELECT 
             Results.specsID, 
@@ -851,6 +928,72 @@ app.get('/results', function(req, res) {
         FROM Deals 
         JOIN Laptops ON Deals.laptopID = Laptops.laptopID;`;
 
+    db.pool.query(query1, function(error, results, fields) {
+        if (error) {
+            res.status(500).send(error);
+            return;
+        }
+
+        db.pool.query(query2, function(error, specs, fields) {
+            if (error) {
+                res.status(500).send(error);
+                return;
+            }
+
+            db.pool.query(query3, function(error, deals, fields) {
+                if (error) {
+                    res.status(500).send(error);
+                    return;
+                }
+
+                res.render('results', {data: results, specs: specs, deals: deals});
+            });
+        });
+    });
+});
+
+app.post('/auto-associate', function(req, res) {
+    let updateResultsQuery = 
+        `INSERT IGNORE INTO Results (specsID, dealID)
+        SELECT DISTINCT 
+            Specs.specsID, 
+            Deals.dealID 
+        FROM Specs
+        INNER JOIN Laptops ON (
+            (Specs.brandName IS NULL OR Laptops.brandName LIKE CONCAT('%', LOWER(Specs.brandName), '%'))
+            AND (Specs.gpu IS NULL OR Laptops.gpu LIKE CONCAT('%', LOWER(Specs.gpu), '%'))
+            AND (Specs.cpu IS NULL OR Laptops.cpu LIKE CONCAT('%', LOWER(Specs.cpu), '%'))
+            AND (Specs.ram IS NULL OR Specs.ram = 0 OR Laptops.ram >= Specs.ram)
+            AND (Specs.internalStorage IS NULL OR Specs.internalStorage = 0 OR Laptops.internalStorage >= Specs.internalStorage)
+            AND (Specs.displaySize IS NULL OR Specs.displaySize = 0 OR Laptops.displaySize >= Specs.displaySize)
+        )
+        INNER JOIN Deals ON Laptops.laptopID = Deals.laptopID
+        WHERE (Specs.budget IS NULL or Specs.budget = 0.00 OR Deals.price IS NULL OR Specs.budget >= Deals.price);`;
+
+    db.pool.query(updateResultsQuery, function(error, updateResult, fields) {
+        if (error) {
+            res.status(500).send(error);
+            return;
+        }
+        res.redirect('/results');
+        // res.render('results', {data: results, specs: specs, deals: deals});
+    });
+});
+
+app.post('/clear-table', function(req, res) {
+    let disableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=0;`;
+    let enableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=1;`;
+    let dropTableQuery = `DROP TABLE IF EXISTS Results;`;
+    let createTableQuery = `
+        CREATE TABLE Results (
+            specsID int(11) NOT NULL,
+            dealID int(11) NOT NULL,
+            PRIMARY KEY (specsID, dealID),
+            KEY dealID (dealID),
+            CONSTRAINT Results_ibfk_1 FOREIGN KEY (specsID) REFERENCES Specs (specsID) ON DELETE CASCADE,
+            CONSTRAINT Results_ibfk_2 FOREIGN KEY (dealID) REFERENCES Deals (dealID) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;`;
+        
     db.pool.query(disableForeignKeyChecks, function(error, result, fields) {
         if (error) {
             res.status(500).send(error);
@@ -868,49 +1011,12 @@ app.get('/results', function(req, res) {
                     res.status(500).send(error);
                     return;
                 }
-
-                db.pool.query(updateResultsQuery, function(error, updateResult, fields) {
-                    if (error) {
-                        res.status(500).send(error);
-                        return;
-                    }
-
-                    db.pool.query(enableForeignKeyChecks, function(error, enableResult, fields) {
-                        if (error) {
-                            res.status(500).send(error);
-                            return;
-                        }
-
-                        db.pool.query(query1, function(error, results, fields) {
-                            if (error) {
-                                res.status(500).send(error);
-                                return;
-                            }
-
-                            db.pool.query(query2, function(error, specs, fields) {
-                                if (error) {
-                                    res.status(500).send(error);
-                                    return;
-                                }
-
-                                db.pool.query(query3, function(error, deals, fields) {
-                                    if (error) {
-                                        res.status(500).send(error);
-                                        return;
-                                    }
-
-                                    res.render('results', {data: results, specs: specs, deals: deals});
-                                });
-                            });
-                        });
-                    });
-                });
+                res.redirect('/results');
+                // res.render('results', {data: results, specs: specs, deals: deals});
             });
         });
     });
 });
-
-
 
 // ---------------------------- Stores Methods ---------------------------- //
 
@@ -1086,7 +1192,6 @@ app.post('/updateStore', function(req, res)
         res.redirect('/stores')
     }
 });
-
 
 app.listen(PORT, function(){
     console.log("Listening on port " + PORT + ".")

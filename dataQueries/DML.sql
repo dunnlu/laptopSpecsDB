@@ -103,19 +103,21 @@ SELECT * FROM Deals WHERE dealID = (
 
 -- populate 'results' intersection table with deals given a specific deal
 -- LIKE concat(); https://www.tutorialspoint.com/can-we-use-like-concat-in-a-mysql-query
-INSERT INTO Results (specsID, dealID)
-SELECT Specs.specsID, Deals.dealID FROM Specs
+INSERT IGNORE INTO Results (specsID, dealID)
+SELECT DISTINCT 
+	Specs.specsID, 
+	Deals.dealID 
+FROM Specs
 INNER JOIN Laptops ON (
-    (Specs.brandName IS NULL OR Laptops.brandName LIKE CONCAT('%', Specs.brandName, '%'))
-    AND (Specs.gpu IS NULL OR Laptops.gpu LIKE CONCAT('%', Specs.gpu, '%'))
-    AND (Specs.cpu IS NULL OR Laptops.cpu LIKE CONCAT('%', Specs.cpu, '%'))
-    AND (Specs.ram IS NULL OR Laptops.ram >= Specs.ram)
-    AND (Specs.internalStorage IS NULL OR Laptops.internalStorage >= Specs.internalStorage)
-    AND (Specs.displaySize IS NULL OR Laptops.displaySize = Specs.displaySize)
-	)
+	(Specs.brandName IS NULL OR Laptops.brandName LIKE CONCAT('%', LOWER(Specs.brandName), '%'))
+	AND (Specs.gpu IS NULL OR Laptops.gpu LIKE CONCAT('%', LOWER(Specs.gpu), '%'))
+	AND (Specs.cpu IS NULL OR Laptops.cpu LIKE CONCAT('%', LOWER(Specs.cpu), '%'))
+	AND (Specs.ram IS NULL OR Specs.ram = 0 OR Laptops.ram >= Specs.ram)
+	AND (Specs.internalStorage IS NULL OR Specs.internalStorage = 0 OR Laptops.internalStorage >= Specs.internalStorage)
+	AND (Specs.displaySize IS NULL OR Specs.displaySize = 0 OR Laptops.displaySize >= Specs.displaySize)
+)
 INNER JOIN Deals ON Laptops.laptopID = Deals.laptopID
-WHERE Specs.specsID = :specID
-	AND (Deals.price IS NULL OR Specs.budget >= Deals.price)
+WHERE (Specs.budget IS NULL or Specs.budget = 0.00 OR Deals.price IS NULL OR Specs.budget >= Deals.price);
 
 -- remove expired deals from results (should occur before displaying deals)
 -- NOW() function	https://www.w3schools.com/sql/func_mysql_now.asp

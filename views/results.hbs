@@ -21,7 +21,6 @@
 				document.getElementById('delete').style.display = 'none';
                 document.getElementById('update-specID').value = sid;
                 document.getElementById('update-dealID').value = did;
-
 			}
 			else if (dowhat == 'delete'){
 				document.getElementById('browse').style.display = 'none';
@@ -50,16 +49,40 @@
     function browseResults() { showform ('browse'); }
     function showAll() { showform ('all'); }
 </script>
+    <style>
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+        .button-container a,
+        .button-container form {
+            margin-right: 10px;
+        }
+        .button-container button {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body onload="browseResults()">
 <h1>Results</h1>
 [ <a href="/specs">Specs</a> | <a href="/laptops">Laptops</a> | <a href="/deals">Deals</a> | <a href="/results">Results</a> | <a href="/stores">Stores</a> ]
-<p>Add or delete a Specification-to-Deal association</p>
-<div id="browse">
+<p>Add, delete or Auto-Associate Specification-to-Deal associations. </p>
 <p>
-  <a href="#" onClick="newResults()">New Result Association</a>
+  <a href="#" onClick="newResults()">New Spec-to-Deal association</a>
 </p>
+<div class="button-container">
+  <form method="POST" action="/auto-associate">
+      <button type="submit">Auto-Associate</button>
+  </form>
+  <form method="POST" action="/clear-table">
+      <button type="submit" onClick="browseResults()">Clear Table</button>
+  </form>
+</div>
+
+<div id="browse">
+
 <table border="1" cellpadding="5">
   <tr>
     <th>specsID</th>

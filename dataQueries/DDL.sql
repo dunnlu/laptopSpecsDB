@@ -156,11 +156,11 @@ CREATE TABLE `Results` (
 -- Dumping data for table `Results`
 --
 
--- LOCK TABLES `Results` WRITE;
--- /*!40000 ALTER TABLE `Results` DISABLE KEYS */;
--- INSERT INTO `Results` VALUES (1,1),(1,2),(2,3),(3,4);
--- /*!40000 ALTER TABLE `Results` ENABLE KEYS */;
--- UNLOCK TABLES;
+LOCK TABLES `Results` WRITE;
+/*!40000 ALTER TABLE `Results` DISABLE KEYS */;
+INSERT INTO `Results` VALUES (1,1),(1,2),(2,3),(3,4);
+/*!40000 ALTER TABLE `Results` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Specs`
@@ -186,15 +186,6 @@ CREATE TABLE `Specs` (
 --
 -- Dumping data for table `Specs`
 --
-
--- LOCK TABLES `Specs` WRITE;
--- /*!40000 ALTER TABLE `Specs` DISABLE KEYS */;
--- INSERT INTO `Specs` VALUES 
---   (1,'Joe\'s List','NULL','NVIDIA GeForce RTX 2060','NULL',16,512,14,3000.00),
---   (2,'Mariana\'s List','HP','NULL','Intel i7 5 GHz',16,128,16,2000.00),
---   (3,'Schindler''s list','NULL','Nvidia Geforce RTX','NULL',32,'NULL',16,1900.00);
--- /*!40000 ALTER TABLE `Specs` ENABLE KEYS */;
--- UNLOCK TABLES;
 
 LOCK TABLES `Specs` WRITE;
 /*!40000 ALTER TABLE `Specs` DISABLE KEYS */;
