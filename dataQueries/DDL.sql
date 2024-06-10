@@ -193,10 +193,10 @@ INSERT INTO `Specs` (specsID, specsName, brandName, gpu, cpu, ram, internalStora
   (1,'Joe\'s List', NULL, 'NVIDIA GeForce RTX', NULL, 16, 512, 14, 3000.00),
   (2,'Mariana\'s List', 'HP', NULL, 'Intel i7 5 GHz', 16, 128, 16, 2000.00),
   (3,'Schindler\'s List', NULL, 'NVIDIA GeForce RTX', NULL, 32, NULL, 16, 1900.00),
-  (4,'Jennay\'s AMD Thing', NULL, 'AMD Radeon', 'AMD Ryzen', NULL, NULL, NULL, 2500.00),
-  (5,'Benny Wants RTX', NULL, 'GeForce RTX', NULL, NULL, NULL, NULL, NULL),
+  (4,'L\'s AMD Thing', NULL, 'AMD Radeon', 'AMD Ryzen', NULL, NULL, NULL, 2500.00),
+  (5,'Farouk Wants RTX', NULL, 'GeForce RTX', NULL, NULL, NULL, NULL, NULL),
   (6,'Jenny Wants HP', 'HP', NULL, NULL, NULL, NULL, NULL, NULL),
-  (7,'GIVE RITCHIE ALL', NULL, NULL, NULL, NULL, NULL, NULL, 100000);
+  (7,'Ritchie Wants Anything', NULL, NULL, NULL, NULL, NULL, NULL, 100000);
 /*!40000 ALTER TABLE `Specs` ENABLE KEYS */;
 UNLOCK TABLES;
 
