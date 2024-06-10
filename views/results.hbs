@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Results</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+{{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
 <script language="JavaScript">
 		function showform(dowhat, sid, did) {
 			/*
@@ -21,15 +21,17 @@
 				document.getElementById('delete').style.display = 'none';
                 document.getElementById('update-specID').value = sid;
                 document.getElementById('update-dealID').value = did;
+                document.getElementById('original-specID').value = sid;
+                document.getElementById('original-dealID').value = did;
 			}
-			else if (dowhat == 'delete'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'block';
-                document.getElementById('delete-specID').value = sid;
-                document.getElementById('delete-dealID').value = did;
-			}
+        else if (dowhat == 'delete'){
+            document.getElementById('browse').style.display = 'none';
+            document.getElementById('insert').style.display = 'none';
+            document.getElementById('update').style.display = 'none';
+            document.getElementById('delete').style.display = 'block';
+            document.getElementById('delete-specID').value = sid;
+            document.getElementById('delete-dealID').value = did;
+        }
             else if (dowhat == 'all'){
 				document.getElementById('browse').style.display = 'block';
 				document.getElementById('insert').style.display = 'block';
@@ -44,7 +46,7 @@
 			}
 		}
     function newResults() { showform('insert'); }
-    function updateResults(pid) { showform('update', pid); }
+    function updateResults(sid, did) { showform('update', sid, did); }
     function deleteResults(sid, did) { showform('delete', sid, did); }
     function browseResults() { showform ('browse'); }
     function showAll() { showform ('all'); }
@@ -66,9 +68,14 @@
 </head>
 
 <body onload="browseResults()">
-<h1>Results</h1>
+<header>
+    <h1><a href="/">LaptopSpecsDB</a></h1>
+</header>
 [ <a href="/specs">Specs</a> | <a href="/laptops">Laptops</a> | <a href="/deals">Deals</a> | <a href="/results">Results</a> | <a href="/stores">Stores</a> ]
-<p>Add, delete or Auto-Associate Specification-to-Deal associations. </p>
+<h1>Results</h1>
+<p>
+    Add or modify a Specification-to-Deal association.
+</p>
 <p>
   <a href="#" onClick="newResults()">New Spec-to-Deal association</a>
 </p>
@@ -82,42 +89,41 @@
 </div>
 
 <div id="browse">
-
-<table border="1" cellpadding="5">
-  <tr>
-    <th>specsID</th>
-    <th>dealID</th>
-  </tr>
-  {{#each data}}
-  <tr>
-    <td>{{this.specsID}} -- {{this.specsName}}</td>
-    <td>{{this.dealID}} -- {{this.laptopName}}</td>
-    {{!-- <td>{{this.specsName}}</td>
-    <td>{{this.laptopName}}</td>
-    <td>${{this.price}}</td> --}}
-    <td><a href="#" onClick="updateResults('{{this.specsID}}', '{{this.dealID}}')">Edit</a></td>
-    <td><a href="#" onclick="deleteResults('{{this.specsID}}', '{{this.dealID}}')">Delete</a></td>
-  </tr>
-  {{/each}}
-</table>
-<p><a href="#" onClick="showAll()">Display all forms</a></p>
+    <table border="1" cellpadding="5">
+    <tr>
+        <th>specsID</th>
+        <th>dealID</th>
+    </tr>
+    {{#each data}}
+    <tr>
+        <td>{{this.specsID}} -- {{this.specsName}}</td>
+        <td>{{this.dealID}} -- {{this.laptopName}} -- {{this.price}}</td>
+        {{!-- <td>{{this.specsName}}</td>
+        <td>{{this.laptopName}}</td>
+        <td>${{this.price}}</td> --}}
+        <td><a href="#" onClick="updateResults('{{this.specsID}}', '{{this.dealID}}')">Edit</a></td>
+        <td><a href="#" onclick="deleteResults('{{this.specsID}}', '{{this.dealID}}')">Delete</a></td>
+    </tr>
+    {{/each}}
+    </table>
+    <p><a href="#" onClick="showAll()">Display all forms</a></p>
 </div> <!-- browse -->
 
 <div id="insert">
-    <form method="POST" id="addResults" action="/addResults">
+    <form method="POST" id="addResult" action="/addResult">
         <legend><strong>Create a new association</strong></legend>
         <fieldset class="fields">
             <label for="specsID">specsID</label>
             <select name="specsID" id="specsID">
                 {{#each specs}}
-                <option value="{{this.specsID}}">{{this.specsName}}</option>
+                <option value="{{this.specsID}}">{{this.specsID}} -- {{this.specsName}}</option>
                 {{/each}}
             </select>
         
             <label for="dealID">dealID</label>
             <select name="dealID" id="dealID">
                 {{#each deals}}
-                <option value="{{this.dealID}}">{{this.laptopName}} - ${{this.price}}</option>
+                <option value="{{this.dealID}}">{{this.dealID}} -- {{this.laptopName}} -- {{this.price}}</option>
                 {{/each}}
             </select>
         </fieldset>
@@ -127,19 +133,21 @@
 </div><!-- insert -->
 
 <div id="update">
-    <form method="POST" id="UpdateResults" action="/updateResults">
+    <form method="POST" id="UpdateResults" action="/updateResult">
         <legend><strong>Edit an association</strong></legend>
         <fieldset class="fields">
+            <input type="hidden" name="originalSpecsID" id="original-specID">
+            <input type="hidden" name="originalDealID" id="original-dealID">
             <label for="specsID">specsID</label>
-            <select name="specsID" id="update-specsID">
+            <select name="specsID" id="update-specID">
                 {{#each specs}}
-                <option value="{{this.specsID}}">{{this.specsName}}</option>
+                <option value="{{this.specsID}}">{{this.specsID}} -- {{this.specsName}}</option>
                 {{/each}}
             </select>
             <label for="dealID">dealID</label>
             <select name="dealID" id="update-dealID">
                 {{#each deals}}
-                <option value="{{this.dealID}}">{{this.laptopName}} - ${{this.price}}</option>
+                <option value="{{this.dealID}}">{{this.dealID}} -- {{this.laptopName}} -- {{this.price}}</option>
                 {{/each}}
             </select>
         </fieldset>
@@ -149,15 +157,15 @@
 </div><!-- update -->
 
 <div id="delete" style="display: none">
-    <form method="POST" id="deleteResults" action="/deleteResults">
+    <form method="POST" id="deleteResults" action="/deleteResult">
         <legend><strong>Delete an association</strong></legend>
         <fieldset class="fields">
             <p>Are you sure you wish to delete the following?</p>
             <input type="hidden" name="ResultsID" id="deleteResultsID">
             <label for="delete-specsID">specsID</label>
-            <input type="text" name="delete-specsID" id="delete-specsID" readonly>
+            <input type="text" name="delete-specID" id="delete-specID" >
             <label for="delete-dealID">dealID</label>
-            <input type="text" name="delete-dealID" id="delete-dealID" readonly>
+            <input type="text" name="delete-dealID" id="delete-dealID" >
         </fieldset>
         <input class="btn" type="submit" value="Delete Results">
         <input class="btn" type="button" value="cancel" onClick="browseResults()">

@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Stores</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+{{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
 <script language="JavaScript">
 		function showform(dowhat,pid) {
 			/*
@@ -51,9 +51,12 @@
 </head>
 
 <body onload="browseStores()">
-<h1>Stores</h1>
+<header>
+    <h1><a href="/">LaptopSpecsDB</a></h1>
+</header>
 [ <a href="/specs">Specs</a> | <a href="/laptops">Laptops</a> | <a href="/deals">Deals</a> | <a href="/results">Results</a> | <a href="/stores">Stores</a> ]
-<p>Add or remove a store to find deals from.</p>
+<h1>Stores</h1>
+<p>Add or modify a Store.</p>
 <div id="browse">
 <p>
   <a href="#" onClick="newStores()">New Store</a>
@@ -97,7 +100,7 @@
     <form method="POST" id="UpdateStores" action="/updateStore">
         <legend><strong>Update Store</strong></legend>
           <fieldset class="fields">
-            <label> storeID </label> <input type="text" name="update-id" id="update-id" readonly>
+            <label> storeID </label> <input type="text" name="update-id" id="update-id" >
             <label> storeName </label> <input type="text" name="update-storeName" id="update-storeName">
             <label> url </label> <input type="text" name="update-url" id="update-url">
           </fieldset>
@@ -105,6 +108,7 @@
           <input class="btn" type="button" value="cancel" onClick="browseStores()">
 	  </form>
 </div><!-- update -->
+
 <p>&nbsp;</p>
 <div id="delete" style="display: block">
   <form method="post" id="deleteStores" action="/deleteStore">
@@ -112,7 +116,7 @@
           <fieldset class="fields">
           <p>Are you sure you wish to delete the following?</p>
           <input type="hidden" name="StoresID" id="deleteStoresID" value="1">
-          <label><strong>ID:</strong></label><input type="text" name="delete-id" id="delete-id">
+          <label><strong>ID:</strong></label><input type="text" name="delete-id" id="delete-id" >
     </fieldset>
     <input class="btn" type="submit" id="DeleteStores" value="Delete Stores">
           <input class="btn" type="button" value="cancel" onClick="browseStores()">

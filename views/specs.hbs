@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Specs</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+{{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
 <script language="JavaScript">
 		function showform(dowhat,pid) {
 			/*
@@ -50,9 +50,12 @@
 </head>
 
 <body onload="browseSpecs()">
-<h1>Specs</h1>
+<header>
+  <h1><a href="/">LaptopSpecsDB</a></h1>
+</header>
 [ <a href="/specs">Specs</a> | <a href="/laptops">Laptops</a> | <a href="/deals">Deals</a> | <a href="/results">Results</a> | <a href="/stores">Stores</a> ]
-<p>Create new specs wishlist, or modify an existing one.</p>
+<h1>Specs</h1>
+<p>Add or modify a Specifications wishlist.</p>
 <div id="browse">
 <p>
   <a href="#" onClick="newSpecs()">New Wishlist</a>
@@ -81,7 +84,7 @@
     <td align="center">{{this.internalStorage}}</td>          <!-- storage -->
     <td align="center">{{this.displaySize}}</td>             <!-- display -->
     <td>{{this.budget}}</td>         <!-- budget -->
-    <td><a href="/deals">Deals</a></td>
+    {{!-- <td><a href="/deals">Deals</a></td> --}}
     <td><a href="#" onClick="updateSpecs('{{this.specsID}}')">Edit</a></td>
     <td><a href="#" onclick="deleteSpecs('{{this.specsID}}')">Delete</a></td>
   </tr>
@@ -114,7 +117,7 @@
     <form method="POST" id="UpdateSpecs" action="/updateSpec">
         <legend><strong>Update Specs Wishlist</strong></legend>
           <fieldset class="fields">
-          <label> specsID </label> <input type="text" name="update-id" id="update-id" readonly>
+          <label> specsID </label> <input type="text" name="update-id" id="update-id" >
           <label> specsName </label> <input type="text" name="update-specsName" id="update-specsName">
           <label> brandName </label> <input type="text" name="update-brandName" id="update-brandName">
           <label> gpu </label> <input type="text" name="update-gpu" id="update-gpu">
@@ -136,7 +139,7 @@
           <fieldset class="fields">
           <p>Are you sure you wish to delete the following?</p>
           <input type="hidden" name="specsID" id="deleteSpecsID" value="1">
-          <label><strong>ID:</strong></label><input type="text" name="delete-id" id="delete-id">
+          <label><strong>ID:</strong></label><input type="text" name="delete-id" id="delete-id" >
             
     </fieldset>
     <input class="btn" type="submit" id="DeleteSpecs" value="Delete Specs">

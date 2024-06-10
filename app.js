@@ -802,6 +802,7 @@ app.post('/updateLaptop', function(req, res)
 // --------------------------- Results Methods ---------------------------- //
 
 // Get method to update associations on results page load
+// Needs updated SQL queries from auto-associate and clear-table
 // app.get('/results', function(req, res) {
 //     let disableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=0;`;
 //     let enableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=1;`;
@@ -933,6 +934,11 @@ app.get('/results', function(req, res) {
             res.status(500).send(error);
             return;
         }
+        // price formatting
+        results = results.map(result => {
+            result.price = result.price ? result.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : null;
+            return result;
+        });
 
         db.pool.query(query2, function(error, specs, fields) {
             if (error) {
@@ -945,6 +951,11 @@ app.get('/results', function(req, res) {
                     res.status(500).send(error);
                     return;
                 }
+                // price formatting
+                deals = deals.map(deal => {
+                    deal.price = deal.price ? deal.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : null;
+                    return deal;
+                });
 
                 res.render('results', {data: results, specs: specs, deals: deals});
             });
@@ -1016,6 +1027,130 @@ app.post('/clear-table', function(req, res) {
             });
         });
     });
+});
+
+app.post('/deleteResult', function(req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `DELETE FROM Results WHERE specsID = ${data['delete-specID']} AND dealID = ${data['delete-dealID']}`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Results
+            query2 = `SELECT * FROM Results;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log("redirecting")
+                    res.redirect('/results')
+                }
+            })
+        }
+    })
+});
+
+app.post('/addResult', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Results (specsID, dealID) VALUES ("${data.specsID}", "${data.dealID}")`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on bsg_people
+            query2 = `SELECT * FROM Results;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log("redirecting")
+                    res.redirect('/results')
+                }
+            })
+        }
+    })
+});
+
+app.post('/updateResult', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    let query1 = 
+    `UPDATE Results 
+        SET specsID = "${data.specsID}", dealID = "${data.dealID}" 
+        WHERE specsID = "${data.originalSpecsID}" AND dealID = "${data.originalDealID}";`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on bsg_people
+            query2 = `SELECT * FROM Results;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log("redirecting")
+                    res.redirect('/results')
+                }
+            })
+        }
+    })
+    res.redirect('/results')
 });
 
 // ---------------------------- Stores Methods ---------------------------- //

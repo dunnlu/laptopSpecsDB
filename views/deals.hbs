@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Deals</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+{{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
 <script language="JavaScript">
 		function showform(dowhat,pid,lid,sid) {
 			/*
@@ -52,9 +52,12 @@
 </head>
 
 <body onload="browseDeals()">
-<h1>Deals</h1>
+<header>
+    <h1><a href="/">LaptopSpecsDB</a></h1>
+</header>
 [ <a href="/specs">Specs</a> | <a href="/laptops">Laptops</a> | <a href="/deals">Deals</a> | <a href="/results">Results</a> | <a href="/stores">Stores</a> ]
-<p>View existing deals, or modify an existing one.</p>
+<h1>Deals</h1>
+<p>Add or modify a Deal.</p>
 <div id="browse">
 <p>
   <a href="#" onClick="newDeals()">New Deal</a>
@@ -129,7 +132,7 @@
     <form method="POST" id="updateDeal" action="/updateDeal">
         <legend><strong>Update Deal</strong></legend>
         <fieldset class="fields">
-          <label> dealID </label> <input type="text" name="update-id" id="update-id" readonly>
+          <label> dealID </label> <input type="text" name="update-id" id="update-id">
           
           <label for="update-laptopID"> laptopID </label> 
             
@@ -167,7 +170,7 @@
           <p>Are you sure you wish to delete the following?</p>
           <input type="hidden" name="DealsID" id="deleteDealID" value="1">
             <label><strong>ID:</strong></label>
-            <input type="text" name="delete-id" id="delete-id"> 
+            <input type="text" name="delete-id" id="delete-id" > 
     </fieldset>
     <input class="btn" type="submit" id="DeleteDeal" value="Delete Deals">
           <input class="btn" type="button" value="cancel" onClick="browseDeals()">
