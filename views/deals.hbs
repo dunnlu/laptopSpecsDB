@@ -82,7 +82,7 @@
         <td>{{this.timeEnd}}</td>                            <!-- timeEnd -->
         <td align="center">{{this.stock}}</td>                              <!-- stock -->
         <td>{{this.price}}</td>                              <!-- price -->
-        <td><a href={{this.url}}, target=”_blank”>link</a></td>
+        <td><a href={{this.url}}, target=”_blank”>{{this.laptopName}} from {{this.storeName}}</a></td>
         <td><a href="#" onClick="updateDeal('{{this.dealID}}', '{{this.laptopID}}', '{{this.storeID}}')">Edit</a></td>
         <td><a href="#" onclick="deleteDeal('{{this.dealID}}')">Delete</a></td>
         
@@ -118,7 +118,16 @@
 
             <label> timeStart </label> <input type="date" name="input-timeStart" id="input-timeStart">
             <label> timeEnd </label> <input type="date" name="input-timeEnd" id="input-timeEnd">
-            <label> stock </label> <input type="text" name="input-stock" id="input-stock">
+            <!-- drop down-->
+            <label for="input-stock"> stock </label> 
+            <!--<input type="text" name="input-stock" id="input-stock"> -->
+            <select name="input-stock" id="input-stock">
+              <option value="">null</option>
+              <option value="high">high</option>
+              <option value="medium">medium</option>
+              <option value="low">low</option>
+            </select>
+
             <label> price </label> <input type="text" name="input-price" id="input-price">
             <label> url </label> <input type="text" name="input-url" id="input-url">
       </fieldset>
@@ -153,7 +162,15 @@
 
           <label> timeStart </label> <input type="date" name="update-timeStart" id="update-timeStart">
           <label> timeEnd </label> <input type="date" name="update-timeEnd" id="update-timeEnd">
-          <label> stock </label> <input type="text" name="update-stock" id="update-stock">
+          <!-- drop down-->
+            <label for="update-stock"> stock </label> 
+            <!--<input type="text" name="input-stock" id="input-stock"> -->
+            <select name="update-stock" id="update-stock">
+              <option value="">null</option>
+              <option value="high">high</option>
+              <option value="medium">medium</option>
+              <option value="low">low</option>
+            </select>
           <label> price </label> <input type="text" name="update-price" id="update-price">
           <label> url </label> <input type="text" name="update-url" id="update-url">
     </fieldset>

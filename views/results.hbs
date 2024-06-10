@@ -93,11 +93,13 @@
     <tr>
         <th>specsID</th>
         <th>dealID</th>
+        <th>url</th>
     </tr>
     {{#each data}}
     <tr>
         <td>{{this.specsID}} -- {{this.specsName}}</td>
         <td>{{this.dealID}} -- {{this.laptopName}} -- {{this.price}}</td>
+        <td><a href={{this.url}}, target=”_blank”>{{this.laptopName}} from {{this.storeName}}</a></td>
         {{!-- <td>{{this.specsName}}</td>
         <td>{{this.laptopName}}</td>
         <td>${{this.price}}</td> --}}

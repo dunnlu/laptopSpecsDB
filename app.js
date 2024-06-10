@@ -1,7 +1,7 @@
 // Express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 46747;                // Set a port number at the top so it's easy to change in the future
+PORT        = 45289;                // Set a port number at the top so it's easy to change in the future
 const path = require('path')
 
 //Database
@@ -10,6 +10,7 @@ var db = require('./dataQueries/db-connector')
 
 // Handlebars
 var { engine } = require('express-handlebars');     // Import express-handlebars
+const internal = require('stream');
 app.engine('.hbs', engine({extname: ".hbs"}));  // Create an instance of the handlebars engine to process templates
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
@@ -49,9 +50,9 @@ app.post('/addSpec', function(req, res)
     // Capture NULL values
     let specsName = data['input-specsName'] === '' ? null : data['input-specsName'];
     let brandName = data['input-brandName'] === '' ? null : data['input-brandName'];
-    let gpu = data['input-gpu'] === '' ? null : data['input-gpu'];
-    let cpu = data['input-cpu'] === '' ? null : data['input-cpu'];
-    let ram = data['input-ram'] === '' ? null : data['input-ram'];
+    let gpu = data['input-gpu'] === '' ? null : data['input-gpu']; 
+    let cpu = data['input-cpu'] === '' ? null : data['input-cpu']; 
+    let ram = data['input-ram'] === '' ? null : data['input-ram']; 
     let internalStorage = data['input-internalStorage'] === '' ? null : data['input-internalStorage'];
     let displaySize = data['input-displaySize'] === '' ? null : data['input-displaySize'];
     let budget = data['input-budget'] === '' ? null : data['input-budget'];
@@ -235,13 +236,13 @@ app.get('/deals', function(req, res) {
             res.status(500).send(error);
             return;
         }
-        // let deals = rows;
-        let deals = rows.map(deal => {
-            deal.timeStart = deal.timeStart ? new Date(deal.timeStart).toISOString().split('T')[0] : null;
-            deal.timeEnd = deal.timeEnd ? new Date(deal.timeEnd).toISOString().split('T')[0] : null;
-            deal.price = deal.price ? deal.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : null;
-            return deal;
-        });
+        let deals = rows;
+        // let deals = rows.map(deal => {
+        //     deal.timeStart = deal.timeStart ? new Date(deal.timeStart).toISOString().split('T')[0] : null;
+        //     deal.timeEnd = deal.timeEnd ? new Date(deal.timeEnd).toISOString().split('T')[0] : null;
+        //     deal.price = deal.price ? deal.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : null;
+        //     return deal;
+        // });
 
         db.pool.query(query2, function(error, rows, fields) {
             if (error) {
@@ -269,62 +270,45 @@ app.post('/addDeal', function(req, res)
     let data = req.body;
 
     // Capture NULL values
-    let laptopID = data['input-laptopID'];
-  
-    if (laptopID==='')
-    {
-        laptopID = 'NULL'
-    }
+    let laptopID = data['input-laptopID']; // drop down
 
-    let storeID = data['input-storeID'];
-    if (storeID==='')
-    {
-        storeID = 'NULL'
-    }
+    let storeID = data['input-storeID']; // drop down
 
     let timeStart = data['input-timeStart'];
     if (timeStart==='')
     {
-        timeStart = 'NULL'
+        timeStart = null
     }
 
     let timeEnd = data['input-timeEnd'];
     if (timeEnd==='')
     {
-        timeEnd = 'NULL'
+        timeEnd = null
     }
 
-    let stock = data['input-stock'];
+    let stock = data['input-stock']; // drop down
     if (stock==='')
     {
-        stock = 'NULL'
+        stock = null
     }
 
     let price = data['input-price'];
     if (price==='')
     {
-        price = 'NULL'
+        price = null
     }
 
     let url = data['input-url'];
     if (url==='')
     {
-        url = 'NULL'
-    }
+        url = null
+    } 
 
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Deals (laptopID, storeID, timeStart, timeEnd, stock, price, url) 
-    VALUES (
-        "${laptopID}", 
-        "${storeID}", 
-        "${timeStart}", 
-        "${timeEnd}", 
-        "${stock}", 
-        "${price}",
-        "${url}"
-        )`;
-    db.pool.query(query1, function(error, rows, fields){
+    VALUES ( ?, ?, ?, ?, ?, ?,?)`;
+    db.pool.query(query1, [laptopID,storeID,timeStart,timeEnd,stock,price,url],function(error, rows, fields){
 
         // Check to see if there was an error
         if (error) {
@@ -545,43 +529,43 @@ app.post('/addLaptop', function(req, res)
     let laptopName = data['input-laptopName'];
     if (laptopName==='')
     {
-        laptopName = 'NULL'
+        laptopName = null
     }
 
     let brandName = data['input-brandName'];
     if (brandName==='')
     {
-        brandName = 'NULL'
+        brandName = null
     }
 
-    let gpu = data['input-gpu'];
+    let gpu = data['input-gpu']; // drop down
     if (gpu==='')
     {
-        gpu = 'NULL'
+        gpu = null
     }
 
-    let cpu = data['input-cpu'];
+    let cpu = data['input-cpu']; // drop down
     if (cpu==='')
     {
-        cpu = 'NULL'
+        cpu = null
     }
 
-    let ram = data['input-ram'];
+    let ram = data['input-ram']; // drop down
     if (ram==='')
     {
-        ram = 'NULL'
+        ram = null
     }
 
-    let internalStorage = data['input-internalStorage'];
+    let internalStorage = data['input-internalStorage']; // drop down
     if (internalStorage==='')
     {
-        internalStorage = 'NULL'
+        internalStorage = null
     }
 
-    let displaySize = data['input-displaySize'];
+    let displaySize = data['input-displaySize']; // drop down
     if (displaySize==='')
     {
-        displaySize = 'NULL'
+        displaySize = null
     }
 
 
@@ -589,16 +573,8 @@ app.post('/addLaptop', function(req, res)
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Laptops (laptopName, brandName, gpu, cpu, ram, internalStorage, displaySize) 
-    VALUES (
-        "${laptopName}", 
-        "${brandName}", 
-        "${gpu}", 
-        "${cpu}", 
-        "${ram}", 
-        "${internalStorage}",
-        "${displaySize}"
-        )`;
-    db.pool.query(query1, function(error, rows, fields){
+    VALUES ( ?, ?, ?, ?, ?, ?, ?)`;
+    db.pool.query(query1, [laptopName,brandName,gpu,cpu,ram,internalStorage,displaySize],function(error, rows, fields){
 
         // Check to see if there was an error
         if (error) {
@@ -799,116 +775,6 @@ app.post('/updateLaptop', function(req, res)
     
 });
 
-// --------------------------- Results Methods ---------------------------- //
-
-// Get method to update associations on results page load
-// Needs updated SQL queries from auto-associate and clear-table
-// app.get('/results', function(req, res) {
-//     let disableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=0;`;
-//     let enableForeignKeyChecks = `SET FOREIGN_KEY_CHECKS=1;`;
-//     let dropTableQuery = `DROP TABLE IF EXISTS Results;`;
-//     let createTableQuery = `
-//         CREATE TABLE Results (
-//             specsID int(11) NOT NULL,
-//             dealID int(11) NOT NULL,
-//             PRIMARY KEY (specsID, dealID),
-//             KEY dealID (dealID),
-//             CONSTRAINT Results_ibfk_1 FOREIGN KEY (specsID) REFERENCES Specs (specsID) ON DELETE CASCADE,
-//             CONSTRAINT Results_ibfk_2 FOREIGN KEY (dealID) REFERENCES Deals (dealID) ON DELETE CASCADE
-//         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-//     `;
-//     let updateResultsQuery = `
-//         INSERT INTO Results (specsID, dealID)
-//         SELECT DISTINCT 
-//             Specs.specsID, 
-//             Deals.dealID 
-//         FROM Specs
-//         INNER JOIN Laptops ON (
-//             (Specs.brandName IS NULL OR Laptops.brandName LIKE CONCAT('%', LOWER(Specs.brandName), '%'))
-//             AND (Specs.gpu IS NULL OR Laptops.gpu LIKE CONCAT('%', LOWER(Specs.gpu), '%'))
-//             AND (Specs.cpu IS NULL OR Laptops.cpu LIKE CONCAT('%', LOWER(Specs.cpu), '%'))
-//             AND (Specs.ram IS NULL OR Specs.ram = 0 OR Laptops.ram >= Specs.ram)
-//             AND (Specs.internalStorage IS NULL OR Specs.internalStorage = 0 OR Laptops.internalStorage >= Specs.internalStorage)
-//             AND (Specs.displaySize IS NULL OR Specs.displaySize = 0 OR Laptops.displaySize >= Specs.displaySize)
-//         )
-//         INNER JOIN Deals ON Laptops.laptopID = Deals.laptopID
-//         WHERE (Specs.budget IS NULL or Specs.budget = 0.00 OR Deals.price IS NULL OR Specs.budget >= Deals.price);`;
-//     let query1 = `
-//         SELECT 
-//             Results.specsID, 
-//             Specs.specsName, 
-//             Results.dealID, 
-//             Deals.price, 
-//             Laptops.laptopName
-//         FROM 
-//             Results
-//         INNER JOIN Specs ON Results.specsID = Specs.specsID
-//         INNER JOIN Deals ON Results.dealID = Deals.dealID
-//         INNER JOIN Laptops ON Deals.laptopID = Laptops.laptopID;`;
-//     let query2 = "SELECT specsID, specsName FROM Specs;";
-//     let query3 = `
-//         SELECT Deals.dealID, Deals.price, Laptops.laptopName 
-//         FROM Deals 
-//         JOIN Laptops ON Deals.laptopID = Laptops.laptopID;`;
-
-//     db.pool.query(disableForeignKeyChecks, function(error, result, fields) {
-//         if (error) {
-//             res.status(500).send(error);
-//             return;
-//         }
-
-//         db.pool.query(dropTableQuery, function(error, dropResult, fields) {
-//             if (error) {
-//                 res.status(500).send(error);
-//                 return;
-//             }
-
-//             db.pool.query(createTableQuery, function(error, createResult, fields) {
-//                 if (error) {
-//                     res.status(500).send(error);
-//                     return;
-//                 }
-
-//                 db.pool.query(updateResultsQuery, function(error, updateResult, fields) {
-//                     if (error) {
-//                         res.status(500).send(error);
-//                         return;
-//                     }
-
-//                     db.pool.query(enableForeignKeyChecks, function(error, enableResult, fields) {
-//                         if (error) {
-//                             res.status(500).send(error);
-//                             return;
-//                         }
-
-//                         db.pool.query(query1, function(error, results, fields) {
-//                             if (error) {
-//                                 res.status(500).send(error);
-//                                 return;
-//                             }
-
-//                             db.pool.query(query2, function(error, specs, fields) {
-//                                 if (error) {
-//                                     res.status(500).send(error);
-//                                     return;
-//                                 }
-
-//                                 db.pool.query(query3, function(error, deals, fields) {
-//                                     if (error) {
-//                                         res.status(500).send(error);
-//                                         return;
-//                                     }
-
-//                                     res.render('results', {data: results, specs: specs, deals: deals});
-//                                 });
-//                             });
-//                         });
-//                     });
-//                 });
-//             });
-//         });
-//     });
-// });
 
 app.get('/results', function(req, res) {
     let query1 = `
@@ -917,12 +783,15 @@ app.get('/results', function(req, res) {
             Specs.specsName, 
             Results.dealID, 
             Deals.price, 
-            Laptops.laptopName
+            Laptops.laptopName,
+            Deals.url,
+            Stores.storeName
         FROM 
             Results
         INNER JOIN Specs ON Results.specsID = Specs.specsID
         INNER JOIN Deals ON Results.dealID = Deals.dealID
-        INNER JOIN Laptops ON Deals.laptopID = Laptops.laptopID;`;
+        INNER JOIN Laptops ON Deals.laptopID = Laptops.laptopID
+        INNER JOIN Stores ON Deals.storeID = Stores.storeID;`;
     let query2 = "SELECT specsID, specsName FROM Specs;";
     let query3 = `
         SELECT Deals.dealID, Deals.price, Laptops.laptopName 
@@ -1173,18 +1042,18 @@ app.post('/addStore', function(req, res)
     let storeName = data['input-storeName'];
     if (storeName==='')
     {
-        storeName = 'NULL'
+        storeName = null
     }
 
     let url = data['input-url'];
     if (url==='')
     {
-        url = 'NULL'
+        url = null
     }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Stores (storeName, url) VALUES ("${storeName}", "${url}")`;
-    db.pool.query(query1, function(error, rows, fields){
+    query1 = `INSERT INTO Stores (storeName, url) VALUES (?, ?)`;
+    db.pool.query(query1, [storeName, url],function(error, rows, fields){
 
         // Check to see if there was an error
         if (error) {

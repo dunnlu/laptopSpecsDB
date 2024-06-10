@@ -112,12 +112,12 @@ CREATE TABLE `Laptops` (
 LOCK TABLES `Laptops` WRITE;
 /*!40000 ALTER TABLE `Laptops` DISABLE KEYS */;
 INSERT INTO `Laptops` VALUES 
-  (1,'Zbook','HP','Nvidia RTX 2000','Intel i7 5.2 GHz',64,2,16),
+  (1,'Zbook','HP','Nvidia RTX 2000','Intel i7 5.2 GHz',64,2048,16),
   (2,'Thin GF63','MSI','NVIDIA GeForce GTX 1650 ','Intel i7 4.7 GHz',16,512,16),
   (3,'Omen','HP','NVIDIA GeForce RTX 2060','Intel i7 5 GHz',16,512,17),
-  (4,'GE76 Raider','MSI','NVIDIA GeForce RTX 3060','Intel i7 2.3 GHz',32,1,16),
-  (5,'ThinkPad X1 Carbon','Lenovo','Intel UHD Graphics','Intel i7 4.6 GHz',16,1,14),
-  (6,'MacBook Pro','Apple','AMD Radeon Pro 5300M','Intel i9 2.3 GHz',32,1,16),
+  (4,'GE76 Raider','MSI','NVIDIA GeForce RTX 3060','Intel i7 2.3 GHz',32,1024,16),
+  (5,'ThinkPad X1 Carbon','Lenovo','Intel UHD Graphics','Intel i7 4.6 GHz',16,1024,14),
+  (6,'MacBook Pro','Apple','AMD Radeon Pro 5300M','Intel i9 2.3 GHz',32,1024,16),
   (7,'XPS 15','Dell','NVIDIA GeForce GTX 1650 Ti','Intel i7 4.5 GHz',16,512,15),
   (8,'Spectre x360','HP','Intel Iris Plus','Intel i7 4.9 GHz',16,512,13),
   (9,'Surface Laptop 4','Microsoft','Intel Iris Xe','Intel i7 4.8 GHz',16,512,15),
@@ -129,8 +129,8 @@ INSERT INTO `Laptops` VALUES
   (15,'Pavilion 15','HP','Intel UHD Graphics','Intel i5 3.6 GHz',8,256,15),
   (16,'ENVY 13','HP','Intel Iris Plus','Intel i7 4.7 GHz',16,512,13),
   (17,'Inspiron 15','Dell','Intel UHD Graphics','Intel i5 3.7 GHz',8,256,15),
-  (18,'Yoga C940','Lenovo','Intel Iris Plus','Intel i7 4.9 GHz',16,1,14),
-  (19,'Gram 17','LG','Intel Iris Xe','Intel i7 4.7 GHz',16,1,17),
+  (18,'Yoga C940','Lenovo','Intel Iris Plus','Intel i7 4.9 GHz',16,1024,14),
+  (19,'Gram 17','LG','Intel Iris Xe','Intel i7 4.7 GHz',16,1024,17),
   (20,'ProBook 450','HP','Intel UHD Graphics','Intel i5 3.8 GHz',8,256,15);
 -- /*!40000 ALTER TABLE `Laptops` ENABLE KEYS */;
 UNLOCK TABLES;
