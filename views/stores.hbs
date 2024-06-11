@@ -87,8 +87,8 @@
     <form method="post" id="addStore" action="/addStore">
         <legend><strong>Add Store</strong></legend>
         <fieldset class="fields">
-          <label> storeName </label> <input type="text" name="input-storeName" id="input-storeName">
-          <label> url </label> <input type="text" name="input-url" id="input-url">
+          <label> storeName </label> <input type="text" name="input-storeName" id="input-storeName" required>
+          <label> url </label> <input type="text" name="input-url" id="input-url" required>
         </fieldset>
         <input class="btn" type="submit" id="addStore" value="add">
         <input class="btn" type="button" value="cancel" onClick="browseStores()">

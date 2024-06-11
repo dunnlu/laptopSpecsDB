@@ -19,14 +19,14 @@
 				document.getElementById('insert').style.display = 'none';
 				document.getElementById('update').style.display = 'block';
 				document.getElementById('delete').style.display = 'none';
-                document.getElementById('update-id').value = pid
+        document.getElementById('update-id').value = pid
 			}
 			else if (dowhat == 'delete'){
 				document.getElementById('browse').style.display = 'none';
 				document.getElementById('insert').style.display = 'none';
 				document.getElementById('update').style.display = 'none';
 				document.getElementById('delete').style.display = 'block';
-                document.getElementById('delete-id').value = pid;
+        document.getElementById('delete-id').value = pid;
 			}
       else if (dowhat == 'all'){
 				document.getElementById('browse').style.display = 'block';
@@ -76,12 +76,12 @@
   <tr>
     <td align="center" >{{this.laptopID}}</td>
     <td >{{this.laptopName}}</td>
-    <td align="center" >{{this.brandName}}</td><!-- brand -->
-    <td>{{this.gpu}}</td> <!-- gpu -->
-    <td>{{this.cpu}}</td>          <!-- cpu -->
-    <td align="center">{{this.ram}}</td>             <!-- ram -->
-    <td align="center">{{this.internalStorage}}</td>          <!-- storage -->
-    <td align="center">{{this.displaySize}}</td>             <!-- display -->
+    <td align="center" >{{this.brandName}}</td>
+    <td>{{this.gpu}}</td> 
+    <td>{{this.cpu}}</td> 
+    <td align="center">{{this.ram}}</td>
+    <td align="center">{{this.internalStorage}}</td> 
+    <td align="center">{{this.displaySize}}</td>
     {{!-- <td><a href="/deals">Deals</a></td> --}}
     <td><a href="#" onClick="updateSpecs('{{this.laptopID}}')">Edit</a></td>
     <td><a href="#" onclick="deleteSpecs('{{this.laptopID}}')">Delete</a></td>
@@ -132,12 +132,12 @@
       <legend><strong>Delete Laptop</strong></legend>
           <fieldset class="fields">
           <p>Are you sure you wish to delete the following?</p>
-          <input type="hidden" name="specsID" id="deleteSpecsID" value="1">
-          <label><strong>ID:</strong></label><input type="text" name="delete-id" id="delete-id" >
-            
+          {{!-- <input type="hidden" name="specsID" id="deleteSpecsID"> --}}
+          <label><strong>ID:</strong></label>
+          <input type="text" name="delete-id" id="delete-id" required>
     </fieldset>
     <input class="btn" type="submit" id="DeleteSpecs" value="Delete Specs">
-          <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
+    <input class="btn" type="button" value="cancel" onClick="browseSpecs()">
   </form> 
 </div><!-- delete -->
 

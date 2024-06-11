@@ -1,7 +1,7 @@
 // Express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 45289;                // Set a port number at the top so it's easy to change in the future
+PORT        = 46747;                // Set a port number at the top so it's easy to change in the future
 const path = require('path')
 
 //Database
@@ -213,8 +213,8 @@ app.get('/deals', function(req, res) {
             Deals.dealID, 
             Deals.laptopID, 
             Deals.storeID, 
-            Deals.timeStart, 
-            Deals.timeEnd, 
+            DATE_FORMAT(Deals.timeStart, '%Y-%m-%d') AS timeStart, 
+            DATE_FORMAT(Deals.timeEnd, '%Y-%m-%d') AS timeEnd, 
             Deals.stock, 
             Deals.price, 
             Deals.url,
@@ -224,7 +224,7 @@ app.get('/deals', function(req, res) {
             Deals
         JOIN 
             Laptops ON Deals.laptopID = Laptops.laptopID
-        JOIN 
+        LEFT JOIN 
             Stores ON Deals.storeID = Stores.storeID
         ORDER BY 
             Deals.dealID;`;
@@ -236,13 +236,11 @@ app.get('/deals', function(req, res) {
             res.status(500).send(error);
             return;
         }
-        let deals = rows;
-        // let deals = rows.map(deal => {
-        //     deal.timeStart = deal.timeStart ? new Date(deal.timeStart).toISOString().split('T')[0] : null;
-        //     deal.timeEnd = deal.timeEnd ? new Date(deal.timeEnd).toISOString().split('T')[0] : null;
-        //     deal.price = deal.price ? deal.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : null;
-        //     return deal;
-        // });
+        // let deals = rows;
+        let deals = rows.map(deal => {
+            deal.price = deal.price ? deal.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : null;
+            return deal;
+        });
 
         db.pool.query(query2, function(error, rows, fields) {
             if (error) {
@@ -273,72 +271,67 @@ app.post('/addDeal', function(req, res)
     let laptopID = data['input-laptopID']; // drop down
 
     let storeID = data['input-storeID']; // drop down
-
-    let timeStart = data['input-timeStart'];
-    if (timeStart==='')
+    if (storeID === '')
     {
-        timeStart = null
+        storeID = null;
+    }
+    
+    let timeStart = data['input-timeStart'];
+    if (timeStart === '')
+    {
+        timeStart = null;
     }
 
     let timeEnd = data['input-timeEnd'];
-    if (timeEnd==='')
+    if (timeEnd === '')
     {
-        timeEnd = null
+        timeEnd = null;
     }
 
     let stock = data['input-stock']; // drop down
-    if (stock==='')
+    if (stock === '')
     {
-        stock = null
+        stock = null;
     }
 
     let price = data['input-price'];
-    if (price==='')
+    if (price === '')
     {
-        price = null
+        price = null;
     }
 
     let url = data['input-url'];
-    if (url==='')
+    if (url === '')
     {
-        url = null
+        url = null;
     } 
 
-
     // Create the query and run it on the database
-    query1 = `INSERT INTO Deals (laptopID, storeID, timeStart, timeEnd, stock, price, url) 
-    VALUES ( ?, ?, ?, ?, ?, ?,?)`;
-    db.pool.query(query1, [laptopID,storeID,timeStart,timeEnd,stock,price,url],function(error, rows, fields){
-
+    let query1 = `INSERT INTO Deals (laptopID, storeID, timeStart, timeEnd, stock, price, url) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.pool.query(query1, [laptopID, storeID, timeStart, timeEnd, stock, price, url], function(error, rows, fields){
         // Check to see if there was an error
         if (error) {
-
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
+            console.log(error);
             res.sendStatus(400);
-        }
-        else
-        {
-            // If there was no error, perform a SELECT * on bsg_people
-            query2 = `SELECT * FROM Deals;`;
+        } else {
+            // If there was no error, perform a SELECT * on Deals
+            let query2 = `SELECT * FROM Deals;`;
             db.pool.query(query2, function(error, rows, fields){
-
                 // If there was an error on the second query, send a 400
                 if (error) {
-
                     // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
                     console.log(error);
                     res.sendStatus(400);
+                } else {
+                    // If all went well, redirect to /deals
+                    console.log("redirecting");
+                    res.redirect('/deals');
                 }
-                // If all went well, send the results of the query back.
-                else
-                {
-                    console.log("redirecting")
-                    res.redirect('/deals')
-                }
-            })
+            });
         }
-    })
+    });
 });
 
 app.post('/deleteDeal', function(req, res) 
@@ -386,82 +379,80 @@ app.post('/updateDeal', function(req, res)
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-
-
     let updateString = ``;
     let notFirst = false;
 
     // Capture NULL values
-
     id = data['update-id'];
 
     let laptopID = data['update-laptopID'];
-    if (laptopID!=='')
+    if (laptopID !== '')
     {
         updateString = `laptopID = "${laptopID}"`;
-        notFirst=true;
-    }
-
-    let storeID = data['update-storeID'];
-    if (storeID!=='')
-    {
-        if (notFirst) {
-            updateString+=`, `;
-        }
-        updateString+=`storeID = "${storeID}"`;
         notFirst = true;
     }
 
+    let storeID = data['update-storeID'];
+    if (storeID === '') {
+        storeID = 'NULL';
+    } else {
+        storeID = `"${storeID}"`;
+    }
+    if (notFirst) {
+        updateString += `, `;
+    }
+    updateString += `storeID = ${storeID}`;
+    notFirst = true;
+
     let timeStart = data['update-timeStart'];
-    if (timeStart!=='')
+    if (timeStart !== '')
     {
         if (notFirst) {
-            updateString+=`, `;
+            updateString += `, `;
         }
-        updateString+=`timeStart = "${timeStart}"`;
+        updateString += `timeStart = "${timeStart}"`;
         notFirst = true;
     }
 
     let timeEnd = data['update-timeEnd'];
-    if (timeEnd!=='')
+    if (timeEnd !== '')
     {
         if (notFirst) {
-            updateString+=`, `;
+            updateString += `, `;
         }
-        updateString+=`timeEnd = "${timeEnd}"`;
+        updateString += `timeEnd = "${timeEnd}"`;
         notFirst = true;
     }
 
     let stock = data['update-stock'];
-    if (stock!=='')
+    if (stock !== '')
     {
         if (notFirst) {
-            updateString+=`, `;
+            updateString += `, `;
         }
-        updateString+=`stock = "${stock}"`;
+        updateString += `stock = "${stock}"`;
         notFirst = true;
     }
 
     let price = data['update-price'];
-    if (price!=='')
+    if (price !== '')
     {
         if (notFirst) {
-            updateString+=`, `;
+            updateString += `, `;
         }
-        price+=`price = "${price}"`;
+        updateString += `price = "${price}"`;
         notFirst = true;
     }
 
     let url = data['update-url'];
-    if (url!=='')
+    if (url !== '')
     {
         if (notFirst) {
-            updateString+=`, `;
+            updateString += `, `;
         }
-        updateString+=`url = "${url}"`;
+        updateString += `url = "${url}"`;
         notFirst = true;
     }
-
 
     if (notFirst) {
         // Create the query and run it on the database
@@ -469,7 +460,7 @@ app.post('/updateDeal', function(req, res)
         SET 
             ${updateString}
         WHERE dealID= ${id}`;
-        db.pool.query(query1, function(error, rows, fields){
+        db.pool.query(query1, function(error, rows, fields) {
 
             // Check to see if there was an error
             if (error) {
@@ -480,9 +471,9 @@ app.post('/updateDeal', function(req, res)
             }
             else
             {
-                // If there was no error, perform a SELECT * on bsg_people
+                // If there was no error, perform a SELECT * on Deals
                 query2 = `SELECT * FROM Deals;`;
-                db.pool.query(query2, function(error, rows, fields){
+                db.pool.query(query2, function(error, rows, fields) {
 
                     // If there was an error on the second query, send a 400
                     if (error) {
@@ -503,9 +494,6 @@ app.post('/updateDeal', function(req, res)
     } else {
         res.redirect('/deals')
     }
-
-
-    
 });
 
 // --------------------------- Laptops Methods ---------------------------- //
@@ -775,6 +763,7 @@ app.post('/updateLaptop', function(req, res)
     
 });
 
+// ---------------------------- Results Methods ----------------------------- //
 
 app.get('/results', function(req, res) {
     let query1 = `

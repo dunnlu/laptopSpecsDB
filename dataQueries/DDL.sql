@@ -48,8 +48,8 @@ CREATE TABLE `Deals` (
   PRIMARY KEY (`dealID`),
   KEY `laptopID` (`laptopID`),
   KEY `storeID` (`storeID`),
-  CONSTRAINT `Deals_ibfk_1` FOREIGN KEY (`laptopID`) REFERENCES `Laptops` (`laptopID`),
-  CONSTRAINT `Deals_ibfk_2` FOREIGN KEY (`storeID`) REFERENCES `Stores` (`storeID`)
+  CONSTRAINT `Deals_ibfk_1` FOREIGN KEY (`laptopID`) REFERENCES `Laptops` (`laptopID`) ON DELETE CASCADE,
+  CONSTRAINT `Deals_ibfk_2` FOREIGN KEY (`storeID`) REFERENCES `Stores` (`storeID`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -65,22 +65,22 @@ INSERT INTO `Deals` VALUES
 (2,3,2,'2024-04-30',NULL,'low',1299.00,'https://www.qvc.com/msi-thin-gf63-156-144hz-gaming-laptop-i7-rtx40-60-16gb-512gb.product.E318491.html'),
 (3,18,2,'2024-04-30','2024-08-15','low',1999.98,'https://www.omen.com/us/en/laptops/2019-omen-15/specifications.html'),
 (4,8,3,'2024-05-16',NULL,NULL,1849.99,'https://www.newegg.com/blue-msi-ge-series-ge76-raider-11ue-046-gaming/p/2WC-000C-0DDJ4?Item=9SIADG3J7R0690&cm_sp=SP-_-1798083-_-0-_-2-_-9SIADG3J7R0690-_-MSI%20Nvidia%20GeForce-_-msi-_-2'),
-(5,11,4,'2024-05-01',NULL,'medium',2200.00,'https://www.bestbuy.com/site/lenovo-thinkpad-x1-carbon/'),
+(5,11,4,'2024-05-01',NULL,'med',2200.00,'https://www.bestbuy.com/site/lenovo-thinkpad-x1-carbon/'),
 (6,7,5,'2024-05-02','2024-08-31','high',3500.00,'https://www.amazon.com/macbook-pro/'),
 (7,19,6,'2024-05-03',NULL,'low',1800.00,'https://www.bhphotovideo.com/c/dell-xps-15'),
-(8,10,7,'2024-05-04',NULL,'medium',1400.00,'https://www.walmart.com/ip/hp-spectre-x360/'),
+(8,10,7,'2024-05-04',NULL,'med',1400.00,'https://www.walmart.com/ip/hp-spectre-x360/'),
 (9,14,8,'2024-05-05',NULL,'high',1500.00,'https://www.target.com/p/microsoft-surface-laptop-4/'),
 (10,1,9,'2024-05-06',NULL,'low',1200.00,'https://www.costco.com/acer-aspire-7.html'),
-(11,20,10,'2024-05-07',NULL,'medium',1300.00,'https://www.microcenter.com/lenovo-legion-5'),
+(11,20,10,'2024-05-07',NULL,'med',1300.00,'https://www.microcenter.com/lenovo-legion-5'),
 (12,2,1,'2024-05-08','2024-07-20','high',2500.00,'https://www.hp.com/us-en/shop/razer-blade-15'),
 (13,12,2,'2024-05-09',NULL,'low',900.00,'https://www.qvc.com/acer-swift-3/'),
-(14,4,3,'2024-05-10',NULL,'medium',800.00,'https://www.newegg.com/asus-vivobook-s15/'),
+(14,4,3,'2024-05-10',NULL,'med',800.00,'https://www.newegg.com/asus-vivobook-s15/'),
 (15,16,4,'2024-05-11',NULL,'high',700.00,'https://www.bestbuy.com/site/hp-pavilion-15/'),
 (16,9,5,'2024-05-12','2024-09-01','low',1100.00,'https://www.amazon.com/hp-envy-13/'),
-(17,6,6,'2024-05-13',NULL,'medium',650.00,'https://www.bhphotovideo.com/c/dell-inspiron-15'),
+(17,6,6,'2024-05-13',NULL,'med',650.00,'https://www.bhphotovideo.com/c/dell-inspiron-15'),
 (18,13,7,'2024-05-14',NULL,'high',1400.00,'https://www.walmart.com/ip/lenovo-yoga-c940/'),
 (19,17,8,'2024-05-15',NULL,'low',1600.00,'https://www.target.com/p/lg-gram-17/'),
-(20,5,9,'2024-05-16','2024-10-05','medium',900.00,'https://www.costco.com/hp-probook-450.html');
+(20,5,9,'2024-05-16','2024-10-05','med',900.00,'https://www.costco.com/hp-probook-450.html');
 
 /*!40000 ALTER TABLE `Deals` ENABLE KEYS */;
 UNLOCK TABLES;

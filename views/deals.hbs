@@ -75,14 +75,26 @@
     </tr>
     {{#each data}}
     <tr>
-        <td align="center" >{{this.dealID}}</td>             <!-- dealID -->
-        <td>{{this.laptopID}}  --  {{this.laptopName}}</td>     <!-- laptopID -->
-        <td>{{this.storeID}}  --  {{this.storeName}}</td>       <!-- storeID -->
-        <td>{{this.timeStart}}</td>                          <!-- timeStart -->
-        <td>{{this.timeEnd}}</td>                            <!-- timeEnd -->
-        <td align="center">{{this.stock}}</td>                              <!-- stock -->
-        <td>{{this.price}}</td>                              <!-- price -->
-        <td><a href={{this.url}}, target=”_blank”>{{this.laptopName}} from {{this.storeName}}</a></td>
+        <td align="center" >{{this.dealID}}</td>          
+        <td>{{this.laptopID}}  --  {{this.laptopName}}</td> 
+        <td>
+          {{#if this.storeID}}
+            {{this.storeID}}  --  {{this.storeName}}
+          {{else}}
+            <!-- display nothing if null -->
+          {{/if}}
+        </td>   
+        <td>{{this.timeStart}}</td>                         
+        <td>{{this.timeEnd}}</td>                          
+        <td align="center">{{this.stock}}</td>            
+        <td>{{this.price}}</td>                         
+         <td>
+            {{#if this.url}}
+                <a href="{{this.url}}" target="_blank">{{this.laptopName}} from {{this.storeName}}</a>
+            {{else}}
+               
+            {{/if}}
+        </td>
         <td><a href="#" onClick="updateDeal('{{this.dealID}}', '{{this.laptopID}}', '{{this.storeID}}')">Edit</a></td>
         <td><a href="#" onclick="deleteDeal('{{this.dealID}}')">Delete</a></td>
         
@@ -98,44 +110,40 @@
 <div id="insert">
     <form method="POST" id="addDeals" action="/addDeal">
         <legend><strong>Add Deal</strong></legend>
-          <fieldset class="fields">
-            <label for="input-laptopID"> laptopID </label> 
-
+        <fieldset class="fields">
+            <label for="input-laptopID"> laptopID </label>
             <select name="input-laptopID" id="input-laptopID">
-              {{!-- <option value="">LaptopID</option> --}}
               {{#each laptops}}
               <option value="{{this.laptopID}}">{{this.laptopID}} - {{this.laptopName}}</option>
               {{/each}}
             </select>
 
-            <label for="input-storeID"> storeID </label> 
+            <label for="input-storeID"> storeID </label>
             <select name="input-storeID" id="input-storeID">
-              {{!-- <option value="">storeID</option> --}}
+              <option value="">null</option>
               {{#each stores}}
               <option value="{{this.storeID}}">{{this.storeID}} - {{this.storeName}}</option>
               {{/each}}
             </select>
-
             <label> timeStart </label> <input type="date" name="input-timeStart" id="input-timeStart">
             <label> timeEnd </label> <input type="date" name="input-timeEnd" id="input-timeEnd">
-            <!-- drop down-->
-            <label for="input-stock"> stock </label> 
-            <!--<input type="text" name="input-stock" id="input-stock"> -->
+            
+            <label for="input-stock"> stock </label>
             <select name="input-stock" id="input-stock">
               <option value="">null</option>
               <option value="high">high</option>
-              <option value="medium">medium</option>
+              <option value="medium">med</option>
               <option value="low">low</option>
             </select>
 
             <label> price </label> <input type="text" name="input-price" id="input-price">
             <label> url </label> <input type="text" name="input-url" id="input-url">
-      </fieldset>
-          <input class="btn" type="submit" id="addDeals" value="add">
-          <input class="btn" type="button" value="cancel" onClick="browseDeals()">
-	</form>
-
+        </fieldset>
+        <input class="btn" type="submit" id="addDeals" value="add">
+        <input class="btn" type="button" value="cancel" onClick="browseDeals()">
+    </form>
 </div><!-- insert -->
+
 <p>&nbsp;</p>
 <div id="update">
     <form method="POST" id="updateDeal" action="/updateDeal">
@@ -154,7 +162,7 @@
 
           <label for="update-storeID"> storeID </label> 
           <select name="update-storeID" id="update-storeID">
-            {{!-- <option value="">storeID</option> --}}
+            <option value="">null</option>
             {{#each stores}}
             <option value="{{this.storeID}}">{{this.storeID}} - {{this.storeName}}</option>
             {{/each}}
